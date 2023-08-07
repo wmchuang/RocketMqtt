@@ -19,7 +19,7 @@ public class ConnInfoController : BaseController
     {
         _connInfoService = connInfoService;
     }
-    
+
     /// <summary>
     /// 列表
     /// </summary>

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MQTTnet.AspNetCore;
-using RocketMqtt.Web.Core.Controllers;
 using Microsoft.OpenApi.Models;
+using MQTTnet.AspNetCore;
 using RocketMqtt.Application;
 using RocketMqtt.Infrastructure;
+using RocketMqtt.Web.Core.Controllers;
 using RocketMqtt.Web.Core.Filters;
 
 namespace RocketMqtt.Web.Core;
@@ -46,9 +46,9 @@ public class Startup
         });
 
         services.AddSingleton<MqttController>();
-        
+
         new IdHelperBootstrapper().SetWorkderId(0).Boot();
-        
+
         services.AddInfrastructure();
         services.AddApplication();
     }
@@ -56,7 +56,7 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
     {
         app.UseRouting();
-        
+
         app.UseCors();
         var mqttController = app.ApplicationServices.GetService<MqttController>();
         app.UseMqttServer(
@@ -65,15 +65,14 @@ public class Startup
                 /*
                  * Attach event handlers etc. if required.
                  */
-        
+
                 server.ValidatingConnectionAsync += mqttController.ValidateConnection;
                 server.ClientConnectedAsync += mqttController.OnClientConnected;
                 server.ClientDisconnectedAsync += mqttController.ClientDisconnectedAsync;
-
             });
 
         app.UserSwaggerUi();
-        
+
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

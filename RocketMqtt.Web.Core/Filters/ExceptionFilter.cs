@@ -5,10 +5,10 @@ using RocketMqtt.Web.Core.Results;
 
 namespace RocketMqtt.Web.Core.Filters;
 
-public class ExceptionFilter: IAsyncExceptionFilter
+public class ExceptionFilter : IAsyncExceptionFilter
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="context"></param>
     public async Task OnExceptionAsync(ExceptionContext context)
@@ -16,7 +16,7 @@ public class ExceptionFilter: IAsyncExceptionFilter
         //判断异常是否已经处理
         if (!context.ExceptionHandled)
         {
-            var result = new ApiResult(StatusCodes.Status500InternalServerError, false, context.Exception);
+            var result = new ApiResult(StatusCodes.Status500InternalServerError, false, context.Exception.Message);
 
             context.Result = new JsonResult(result);
 

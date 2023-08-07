@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
 using RocketMqtt.Web.Core.Results;
 
 namespace RocketMqtt.Web.Core.Filters;
@@ -12,7 +11,7 @@ namespace RocketMqtt.Web.Core.Filters;
 public class ResultFilter : IAsyncResultFilter
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="context"></param>
     /// <param name="next"></param>
@@ -26,9 +25,7 @@ public class ResultFilter : IAsyncResultFilter
         await next();
     }
 
-
-
-    object? GetResult(IActionResult result)
+    private object? GetResult(IActionResult result)
     {
         return result switch
         {
