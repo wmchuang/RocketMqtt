@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketMqtt", "RocketMqtt\RocketMqtt.csproj", "{951F6C76-23A7-4874-B44F-422BC051468A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketMqtt.Web.Core", "RocketMqtt.Web.Core\RocketMqtt.Web.Core.csproj", "{5F14A3A7-E951-4B97-B849-A19FDAC8C1BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketMqtt.Domain", "RocketMqtt.Domain\RocketMqtt.Domain.csproj", "{6E05B489-6320-467D-8E33-7ACA19B471F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketMqtt.Infrastructure", "RocketMqtt.Infrastructure\RocketMqtt.Infrastructure.csproj", "{F0FE1743-E247-4A94-AB18-0965D0523D56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketMqtt.Application", "RocketMqtt.Application\RocketMqtt.Application.csproj", "{905D30B1-76FC-4AFC-B7B8-6080DE159541}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{951F6C76-23A7-4874-B44F-422BC051468A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951F6C76-23A7-4874-B44F-422BC051468A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951F6C76-23A7-4874-B44F-422BC051468A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951F6C76-23A7-4874-B44F-422BC051468A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F14A3A7-E951-4B97-B849-A19FDAC8C1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F14A3A7-E951-4B97-B849-A19FDAC8C1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F14A3A7-E951-4B97-B849-A19FDAC8C1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F14A3A7-E951-4B97-B849-A19FDAC8C1BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E05B489-6320-467D-8E33-7ACA19B471F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E05B489-6320-467D-8E33-7ACA19B471F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E05B489-6320-467D-8E33-7ACA19B471F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E05B489-6320-467D-8E33-7ACA19B471F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0FE1743-E247-4A94-AB18-0965D0523D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0FE1743-E247-4A94-AB18-0965D0523D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0FE1743-E247-4A94-AB18-0965D0523D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0FE1743-E247-4A94-AB18-0965D0523D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905D30B1-76FC-4AFC-B7B8-6080DE159541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905D30B1-76FC-4AFC-B7B8-6080DE159541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905D30B1-76FC-4AFC-B7B8-6080DE159541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905D30B1-76FC-4AFC-B7B8-6080DE159541}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
