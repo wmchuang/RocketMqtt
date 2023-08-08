@@ -8,7 +8,7 @@ builder.WebHost.UseKestrel(o =>
 {
     // This will allow MQTT connections based on TCP port 1883.
     o.ListenAnyIP(1884, l => l.UseMqtt());
-    o.ListenAnyIP(5000); 
+    o.ListenAnyIP(8080); 
 });
 
 

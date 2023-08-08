@@ -5,7 +5,7 @@ public class LoginResult
     /// <summary>
     /// 授权token
     /// </summary>
-    public string AccessToken { get; set; } = string.Empty;
+    public string Token { get; set; } = string.Empty;
 
     /// <summary>
     /// 用户名

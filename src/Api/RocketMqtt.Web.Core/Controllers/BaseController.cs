@@ -8,7 +8,6 @@ namespace RocketMqtt.Web.Core.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]/[action]")]
-[EnableCors]
 public class BaseController : ControllerBase
 {
     

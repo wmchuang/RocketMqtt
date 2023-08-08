@@ -18,7 +18,7 @@ public class UserController : BaseController
     {
         return new LoginResult()
         {
-            AccessToken = "123",
+            Token = "123",
             FullName = "Admin"
         };
     }

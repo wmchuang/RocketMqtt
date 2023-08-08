@@ -37,6 +37,17 @@ public class Startup
                 Version = "v1.0"
             });
         });
+        
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
+
 
         services.AddSingleton<MqttController>();
 
@@ -50,7 +61,8 @@ public class Startup
     {
         app.UseRouting();
 
-        app.UseCors();
+        app.UseCors("AllowAll");
+        
         var mqttController = app.ApplicationServices.GetService<MqttController>();
         app.UseMqttServer(
             server =>
