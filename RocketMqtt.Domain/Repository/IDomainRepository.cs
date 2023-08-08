@@ -16,7 +16,7 @@ public interface IDomainRepository<TDomain> where TDomain : class
     /// <returns>Entity</returns>
     Task<TDomain?> GetAsync(string id);
 
-    Task<List<TDomain>> GetListAsync(Expression<Func<TDomain, bool>>? predicate);
+    Task<List<TDomain>> GetListAsync(Expression<Func<TDomain, bool>>? predicate = default);
 
     /// <summary>
     /// Gets an entity with given given predicate or null if not found.

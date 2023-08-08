@@ -6,12 +6,12 @@ using RocketMqtt.Web.Core.Results;
 namespace RocketMqtt.Web.Core.Filters;
 
 /// <summary>
-/// 操作过滤器
+/// 结果过滤器
 /// </summary>
-public class ResultFilter : IAsyncResultFilter
+public class ResultFilter : IAsyncResultFilter, IAsyncExceptionFilter
 {
     /// <summary>
-    ///
+    /// 对返回结果进行发封装
     /// </summary>
     /// <param name="context"></param>
     /// <param name="next"></param>
@@ -23,19 +23,39 @@ public class ResultFilter : IAsyncResultFilter
         context.Result = new OkObjectResult(result);
 
         await next();
+
+        object? GetResult(IActionResult res)
+        {
+            return res switch
+            {
+                // 处理内容结果
+                ContentResult content => content.Content,
+                // 处理对象结果
+                ObjectResult obj => obj.Value,
+                // 处理 JSON 对象
+                JsonResult json => json.Value,
+                _ => null,
+            };
+        }
     }
 
-    private object? GetResult(IActionResult result)
+    /// <summary>
+    /// 发生错误时
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public Task OnExceptionAsync(ExceptionContext context)
     {
-        return result switch
+        //判断异常是否已经处理
+        if (!context.ExceptionHandled)
         {
-            // 处理内容结果
-            ContentResult content => content.Content,
-            // 处理对象结果
-            ObjectResult obj => obj.Value,
-            // 处理 JSON 对象
-            JsonResult json => json.Value,
-            _ => null,
-        };
+            var result = new ApiResult(StatusCodes.Status500InternalServerError, false, context.Exception.Message);
+
+            context.Result = new JsonResult(result);
+
+            context.ExceptionHandled = true;
+        }
+
+        return Task.CompletedTask;
     }
 }

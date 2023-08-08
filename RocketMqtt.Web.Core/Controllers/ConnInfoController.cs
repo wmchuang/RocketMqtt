@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RocketMqtt.Application;
+using RocketMqtt.Application.Common;
 using RocketMqtt.Domain.Domain;
+using RocketMqtt.Web.Core.Results;
 
 namespace RocketMqtt.Web.Core.Controllers;
 
@@ -21,14 +23,12 @@ public class ConnInfoController : BaseController
     }
 
     /// <summary>
-    /// 列表
+    /// Test
     /// </summary>
     /// <returns></returns>
     [HttpPost]
     public string Hello()
     {
-        throw new Exception();
-
         return "Hello";
     }
 
@@ -37,8 +37,18 @@ public class ConnInfoController : BaseController
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public Task<List<ConnInfo>> List()
+    public Task<List<ConnInfo>> ListAsync()
     {
         return _connInfoService.GetListAsync();
+    }
+
+    /// <summary>
+    /// 分页列表
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public Task<PageListResult<ConnInfo>> PageListAsync(BasePageRequest request)
+    {
+        return _connInfoService.GetPageListAsync(request);
     }
 }

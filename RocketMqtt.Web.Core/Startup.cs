@@ -23,16 +23,9 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers(options =>
-            {
-                options.Filters.Add<ExceptionFilter>();
-                options.Filters.Add<ResultFilter>();
-            });
+        services.AddControllers(options => { options.Filters.Add<ResultFilter>(); });
         services.AddHostedMqttServer(
-            optionsBuilder =>
-            {
-                optionsBuilder.WithDefaultEndpoint();
-            });
+            optionsBuilder => { optionsBuilder.WithDefaultEndpoint(); });
 
         services.AddMqttConnectionHandler();
         services.AddConnections();
@@ -40,7 +33,7 @@ public class Startup
         {
             option.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "WeChat.ALL.MP.API",
+                Title = "RockerMqtt Api",
                 Version = "v1.0"
             });
         });
@@ -62,10 +55,6 @@ public class Startup
         app.UseMqttServer(
             server =>
             {
-                /*
-                 * Attach event handlers etc. if required.
-                 */
-
                 server.ValidatingConnectionAsync += mqttController.ValidateConnection;
                 server.ClientConnectedAsync += mqttController.OnClientConnected;
                 server.ClientDisconnectedAsync += mqttController.ClientDisconnectedAsync;
