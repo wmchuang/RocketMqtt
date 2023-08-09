@@ -1,4 +1,5 @@
 using MQTTnet.AspNetCore;
+using NLog.Web;
 using RocketMqtt.Infrastructure.SqlSugar;
 using RocketMqtt.Web.Core;
 
@@ -12,6 +13,7 @@ builder.WebHost.UseKestrel(o =>
     o.ListenAnyIP(8080); 
 });
 
+builder.WebHost.UseNLog();
 
 var startup = new Startup(builder.Configuration);
 
