@@ -23,7 +23,16 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers(options => { options.Filters.Add<ResultFilter>(); });
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<DataValidationFilter>();
+            options.Filters.Add<ResultFilter>();
+        }).ConfigureApiBehaviorOptions(options =>
+        {
+            //关掉自带的模型验证
+            options.SuppressModelStateInvalidFilter = true;
+        });
+        
         services.AddHostedMqttServer(
             optionsBuilder => { optionsBuilder.WithDefaultEndpoint(); });
 

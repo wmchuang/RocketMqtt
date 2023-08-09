@@ -17,12 +17,22 @@ public class ResultFilter : IAsyncResultFilter, IAsyncExceptionFilter
     /// <param name="next"></param>
     public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
+        Console.WriteLine("OnResultExecutionAsync Start");
         var data = GetResult(context.Result);
 
-        var result = new ApiResult<object?>(StatusCodes.Status200OK, true, data);
-        context.Result = new OkObjectResult(result);
+        if (data is ApiResult)
+        {
+            context.Result = new OkObjectResult(data);
+        }
+        else
+        {
+            var result = new ApiResult<object?>(StatusCodes.Status200OK, true, data);
+            context.Result = new OkObjectResult(result);
+        }
 
         await next();
+
+        Console.WriteLine("OnResultExecutionAsync End");
 
         object? GetResult(IActionResult res)
         {
