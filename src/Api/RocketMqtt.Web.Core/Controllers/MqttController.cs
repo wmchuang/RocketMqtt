@@ -1,4 +1,5 @@
-﻿using MQTTnet.Server;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MQTTnet.Server;
 using RocketMqtt.Application;
 using RocketMqtt.Domain.Domain;
 
@@ -9,13 +10,13 @@ namespace RocketMqtt.Web.Core.Controllers;
 /// </summary>
 public class MqttController
 {
-    private readonly IConnInfoService _connInfoService;
+    private readonly IServiceProvider _serviceProvider;
 
-    public MqttController(IConnInfoService connInfoService)
+    public MqttController(IServiceProvider serviceProvider)
     {
-        _connInfoService = connInfoService;
+        _serviceProvider = serviceProvider;
     }
-    
+
     /// <summary>
     /// Client 连接时
     /// </summary>
@@ -24,12 +25,18 @@ public class MqttController
     public Task OnClientConnected(ClientConnectedEventArgs eventArgs)
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' connected.");
-        _connInfoService.AddAsync(new ConnInfo()
+
+        using (var scope = _serviceProvider.CreateScope())
         {
-            ClientId = eventArgs.ClientId,
-            UserName = eventArgs.UserName,
-            Endpoint = eventArgs.Endpoint
-        });
+            var _connInfoService = scope.ServiceProvider.GetRequiredService<IConnInfoService>();
+            _connInfoService.AddAsync(new ConnInfo()
+            {
+                ClientId = eventArgs.ClientId,
+                UserName = eventArgs.UserName,
+                Endpoint = eventArgs.Endpoint
+            });
+        }
+
         return Task.CompletedTask;
     }
 
@@ -43,7 +50,7 @@ public class MqttController
         Console.WriteLine($"Client '{eventArgs.ClientId}' wants to connect. Accepting!");
         return Task.CompletedTask;
     }
-    
+
     /// <summary>
     /// 连接断开
     /// </summary>
@@ -54,6 +61,4 @@ public class MqttController
         Console.WriteLine($"Client '{eventArgs.ClientId}' wants to Disconnected!");
         return Task.CompletedTask;
     }
-    
-    
 }

@@ -1,33 +1,32 @@
 ﻿using RocketMqtt.Application.Common;
 using RocketMqtt.Domain.Domain;
+using RocketMqtt.Infrastructure.SqlSugar;
 using RocketMqtt.Web.Core.Results;
+using SqlSugar;
 
 namespace RocketMqtt.Application;
 
-using Domain.Repository;
-
 public class ConnInfoService : IConnInfoService
 {
-    private readonly IDomainRepository<ConnInfo> _connInfoRep;
+    private readonly SqlSugarScopeProvider _baseDbClient;
 
-    public ConnInfoService(IDomainRepository<ConnInfo> connInfoRep)
+    public ConnInfoService(BaseDbClient baseDbClient)
     {
-        _connInfoRep = connInfoRep;
+        _baseDbClient = baseDbClient.Db;
     }
 
     public async Task AddAsync(ConnInfo connInfo)
     {
-        await _connInfoRep.AddAsync(connInfo);
+        await _baseDbClient.Insertable(connInfo).ExecuteCommandAsync();
     }
 
     public async Task<List<ConnInfo>> GetListAsync()
     {
-        return await _connInfoRep.GetListAsync();
+        return await _baseDbClient.Queryable<ConnInfo>().ToListAsync();
     }
 
     public async Task<PageListResult<ConnInfo>> GetPageListAsync(BasePageRequest request)
     {
-        var list = await _connInfoRep.GetListAsync();
-        return list.ToPageList(request.PageIndex, request.PageSize);
+        return await _baseDbClient.Queryable<ConnInfo>().ToPagedListAsync(request.PageIndex, request.PageSize);
     }
 }

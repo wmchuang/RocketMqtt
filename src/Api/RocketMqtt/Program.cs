@@ -1,4 +1,5 @@
 using MQTTnet.AspNetCore;
+using RocketMqtt.Infrastructure.SqlSugar;
 using RocketMqtt.Web.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,4 +21,6 @@ var app = builder.Build();
 
 startup.Configure(app, app.Environment);
 
+
+app.MigrateDbContext();
 app.Run();

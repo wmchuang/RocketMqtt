@@ -56,6 +56,9 @@ public class Startup
 
         services.AddInfrastructure();
         services.AddApplication();
+        
+        var connectionConfigs = Configuration.GetSection("ConnectionConfigs").Get<List<SqlSugar.ConnectionConfig>>();
+        services.AddSqlSugarSetup(connectionConfigs);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
