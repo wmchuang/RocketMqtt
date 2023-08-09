@@ -38,6 +38,7 @@ public class Startup
             });
         });
         
+        services.AddJwt();
         services.AddCors(options =>
         {
             options.AddPolicy("AllowAll", builder =>
@@ -62,6 +63,9 @@ public class Startup
         app.UseRouting();
 
         app.UseCors("AllowAll");
+        
+        app.UseAuthentication();
+        app.UseAuthorization();
         
         var mqttController = app.ApplicationServices.GetService<MqttController>();
         app.UseMqttServer(

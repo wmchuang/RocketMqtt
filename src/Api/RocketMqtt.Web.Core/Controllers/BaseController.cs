@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RocketMqtt.Web.Core.Controllers;
@@ -8,6 +8,7 @@ namespace RocketMqtt.Web.Core.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize]
 public class BaseController : ControllerBase
 {
     

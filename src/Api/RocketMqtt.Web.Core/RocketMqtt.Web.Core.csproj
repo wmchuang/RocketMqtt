@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.13" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
       <PackageReference Include="MQTTnet.AspNetCore" Version="4.2.1.781" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
