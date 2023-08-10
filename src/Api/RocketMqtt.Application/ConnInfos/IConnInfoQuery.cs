@@ -2,11 +2,10 @@
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Web.Core.Results;
 
-namespace RocketMqtt.Application;
+namespace RocketMqtt.Application.ConnInfos;
 
-public interface IConnInfoService
+public interface IConnInfoQuery
 {
-    Task AddAsync(ConnInfo connInfo);
     Task<List<ConnInfo>> GetListAsync();
     Task<PageListResult<ConnInfo>> GetPageListAsync(BasePageRequest request);
 }

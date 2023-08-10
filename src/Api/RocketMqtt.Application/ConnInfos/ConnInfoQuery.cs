@@ -4,20 +4,15 @@ using RocketMqtt.Infrastructure.SqlSugar;
 using RocketMqtt.Web.Core.Results;
 using SqlSugar;
 
-namespace RocketMqtt.Application;
+namespace RocketMqtt.Application.ConnInfos;
 
-public class ConnInfoService : IConnInfoService
+public class ConnInfoQuery : IConnInfoQuery
 {
     private readonly SqlSugarScopeProvider _baseDbClient;
 
-    public ConnInfoService(BaseDbClient baseDbClient)
+    public ConnInfoQuery(BaseDbClient baseDbClient)
     {
         _baseDbClient = baseDbClient.Db;
-    }
-
-    public async Task AddAsync(ConnInfo connInfo)
-    {
-        await _baseDbClient.Insertable(connInfo).ExecuteCommandAsync();
     }
 
     public async Task<List<ConnInfo>> GetListAsync()

@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using MQTTnet.Server;
 using RocketMqtt.Application;
+using RocketMqtt.Application.ConnInfos;
+using RocketMqtt.Application.ConnInfos.Command;
 using RocketMqtt.Domain.Domain;
 
 namespace RocketMqtt.Web.Core.Controllers;
@@ -22,22 +25,20 @@ public class MqttController
     /// </summary>
     /// <param name="eventArgs"></param>
     /// <returns></returns>
-    public Task OnClientConnected(ClientConnectedEventArgs eventArgs)
+    public async Task OnClientConnected(ClientConnectedEventArgs eventArgs)
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' connected.");
 
-        using (var scope = _serviceProvider.CreateScope())
+        using var scope = _serviceProvider.CreateScope();
+        
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        var command = new CreateConnInfoCommand()
         {
-            var _connInfoService = scope.ServiceProvider.GetRequiredService<IConnInfoService>();
-            _connInfoService.AddAsync(new ConnInfo()
-            {
-                ClientId = eventArgs.ClientId,
-                UserName = eventArgs.UserName,
-                Endpoint = eventArgs.Endpoint
-            });
-        }
-
-        return Task.CompletedTask;
+            ClientId = eventArgs.ClientId,
+            UserName = eventArgs.UserName,
+            Endpoint = eventArgs.Endpoint
+        };
+        await mediator.Send(command);
     }
 
     /// <summary>

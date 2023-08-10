@@ -1,4 +1,5 @@
 ﻿using Coldairarrow.Util;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -69,6 +70,9 @@ public class Startup
         
         var connectionConfigs = Configuration.GetSection("ConnectionConfigs").Get<List<SqlSugar.ConnectionConfig>>();
         services.AddSqlSugarSetup(connectionConfigs);
+        
+        
+        services.AddMediatR(typeof(ApplicationCollectionExtensions));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)

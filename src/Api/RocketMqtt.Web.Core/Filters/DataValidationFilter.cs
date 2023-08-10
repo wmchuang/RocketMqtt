@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
 using RocketMqtt.Web.Core.Results;
 
 namespace RocketMqtt.Web.Core.Filters;
@@ -11,13 +10,6 @@ namespace RocketMqtt.Web.Core.Filters;
 /// </summary>
 public class DataValidationFilter : IAsyncActionFilter
 {
-    private readonly ILogger<DataValidationFilter> _logger;
-
-    public DataValidationFilter(ILogger<DataValidationFilter> logger)
-    {
-        _logger = logger;
-    }
-
     /// <summary>
     /// 执行动作方法前后进行拦截和处理
     /// </summary>
@@ -25,8 +17,6 @@ public class DataValidationFilter : IAsyncActionFilter
     /// <param name="next"></param>
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        _logger.LogInformation("OnActionExecutionAsync Start");
-        Console.WriteLine();
         if (!context.ModelState.IsValid)
         {
 
@@ -38,7 +28,6 @@ public class DataValidationFilter : IAsyncActionFilter
             return;
         }
 
-        Console.WriteLine("OnActionExecutionAsync End");
         
         await next();
 

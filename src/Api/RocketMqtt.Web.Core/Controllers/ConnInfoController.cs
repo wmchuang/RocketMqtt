@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RocketMqtt.Application;
 using RocketMqtt.Application.Common;
+using RocketMqtt.Application.ConnInfos;
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Web.Core.Results;
 
@@ -11,15 +12,15 @@ namespace RocketMqtt.Web.Core.Controllers;
 /// </summary>
 public class ConnInfoController : BaseController
 {
-    private readonly IConnInfoService _connInfoService;
+    private readonly IConnInfoQuery _connInfoQuery;
 
     /// <summary>
     /// ctor
     /// </summary>
-    /// <param name="connInfoService"></param>
-    public ConnInfoController(IConnInfoService connInfoService)
+    /// <param name="connInfoQuery"></param>
+    public ConnInfoController(IConnInfoQuery connInfoQuery)
     {
-        _connInfoService = connInfoService;
+        _connInfoQuery = connInfoQuery;
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public class ConnInfoController : BaseController
     [HttpPost]
     public Task<List<ConnInfo>> ListAsync()
     {
-        return _connInfoService.GetListAsync();
+        return _connInfoQuery.GetListAsync();
     }
 
     /// <summary>
@@ -49,6 +50,6 @@ public class ConnInfoController : BaseController
     [HttpPost]
     public Task<PageListResult<ConnInfo>> PageListAsync(BasePageRequest request)
     {
-        return _connInfoService.GetPageListAsync(request);
+        return _connInfoQuery.GetPageListAsync(request);
     }
 }
