@@ -18,4 +18,8 @@ export interface PageResult {
 export function getPage(data: BasePageQueryRequestModel) {
     return axios.post<PageQueryResponseModel<PageResult>>('/api/ConnInfo/PageList', data);
 }
+
+export function disconnect(id: string) {
+    return axios.get<boolean>(`/api/ConnInfo/Disconnect/${id}`);
+}
   

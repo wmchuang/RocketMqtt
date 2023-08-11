@@ -12,5 +12,5 @@ export default {
   'client.columns.keepAlive': 'KeepAlive',
   'client.columns.createTime': 'CreateTime',
   'client.columns.operations': 'Operations',
-  'client.columns.operations.view': 'Vview',
+  'client.columns.operations.disconnect': 'Disconnect',
 };

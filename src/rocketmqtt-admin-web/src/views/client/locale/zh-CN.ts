@@ -16,5 +16,5 @@ export default {
   'client.columns.keepAlive': '心跳（秒）',
   'client.columns.createTime': '会话创建时间',
   'client.columns.operations': '操作',
-  'client.columns.operations.view': '查看',
+  'client.columns.operations.disconnect': '踢出',
 };

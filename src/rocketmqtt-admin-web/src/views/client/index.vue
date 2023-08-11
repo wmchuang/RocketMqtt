@@ -63,9 +63,9 @@
         <template #index="{ rowIndex }">
           {{ rowIndex + 1 + (pagination.pageIndex - 1) * pagination.pageSize }}
         </template>
-        <template #operations>
-          <a-button v-permission="['admin']" type="text" size="small">
-            {{ $t('client.columns.operations.view') }}
+        <template #operations="{ record }">
+          <a-button v-permission="['admin']" type="text" size="small"  @click="Disconnect(record.clientId)" >
+            {{ $t('client.columns.operations.disconnect') }}
           </a-button>
         </template>
       </a-table>
@@ -78,9 +78,10 @@
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
   import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
-  import { PageRequest,PageResult,getPage } from '@/api/conninfo'
+  import { PageRequest,PageResult,getPage,disconnect } from '@/api/conninfo'
   import { Pagination } from '@/types/global';
   import cloneDeep from 'lodash/cloneDeep';
+  import { Message } from '@arco-design/web-vue';
 
   type Column = TableColumnData & { checked?: true };
   const generateFormModel = () => {
@@ -168,6 +169,15 @@
   fetchData();
   const reset = () => {
     formModel.value = generateFormModel();
+  };
+
+  const Disconnect = async (id: string) => {
+    const { data } = await disconnect(id);
+    console.log(data);
+    if(data === true)
+    {
+      //  fetchData();  //删除这一行
+    }
   };
 
   watch(

@@ -23,7 +23,7 @@ public class MqttController
     }
 
     /// <summary>
-    /// Client 连接时
+    /// 客户端已连接
     /// </summary>
     /// <param name="eventArgs"></param>
     /// <returns></returns>
@@ -62,7 +62,7 @@ public class MqttController
     }
 
     /// <summary>
-    /// 连接断开
+    /// 客户端已断开连接
     /// </summary>
     /// <param name="eventArgs"></param>
     /// <returns></returns>
@@ -77,4 +77,24 @@ public class MqttController
         };
         await _mediator.Send(command);
     }
+    
+    
+    /// <summary>
+    /// 客户端订阅主题
+    /// </summary>
+    /// <param name="eventArgs"></param>
+    /// <returns></returns>
+    public async Task ClientSubscribedTopicAsync(ClientSubscribedTopicEventArgs eventArgs)
+    {
+        Console.WriteLine($"Client '{eventArgs.ClientId}' wants to ClientSubscribedTopic!");
+
+        //
+        // var command = new DeleteConnInfoCommand()
+        // {
+        //     ClientId = eventArgs.ClientId,
+        // };
+        // await _mediator.Send(command);
+    }
+    
+   
 }
