@@ -17,10 +17,12 @@ public class CreateConnInfoCommand : IRequest<bool>
     /// <summary>
     /// 地址
     /// </summary>
-    public string Endpoint { get; set; } = string.Empty;
+    public string Endpoint1 { get; set; } = string.Empty;
 
     /// <summary>
     /// 心跳（秒）
     /// </summary>
     public uint KeepAlive { get; set; }
+
+ 
 }

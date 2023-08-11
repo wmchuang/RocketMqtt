@@ -36,7 +36,7 @@ public class MqttController
         {
             ClientId = eventArgs.ClientId,
             UserName = eventArgs.UserName,
-            Endpoint = eventArgs.Endpoint
+            Endpoint1 = eventArgs.Endpoint
         };
         await mediator.Send(command);
     }
