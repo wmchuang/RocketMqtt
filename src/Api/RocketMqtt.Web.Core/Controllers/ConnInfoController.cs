@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RocketMqtt.Application;
 using RocketMqtt.Application.Common;
 using RocketMqtt.Application.ConnInfos;
+using RocketMqtt.Application.ConnInfos.Request;
+using RocketMqtt.Application.ConnInfos.Result;
 using RocketMqtt.Domain.Domain;
-using RocketMqtt.Web.Core.Results;
 
 namespace RocketMqtt.Web.Core.Controllers;
 
@@ -48,7 +48,7 @@ public class ConnInfoController : BaseController
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public Task<PageListResult<ConnInfo>> PageListAsync(BasePageRequest request)
+    public Task<PageListResult<ConnInfoResult>> PageListAsync(ConnInfoPageRequest request)
     {
         return _connInfoQuery.GetPageListAsync(request);
     }

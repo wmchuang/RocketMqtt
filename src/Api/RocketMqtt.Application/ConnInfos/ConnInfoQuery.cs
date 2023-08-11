@@ -1,7 +1,9 @@
-﻿using RocketMqtt.Application.Common;
+﻿using Mapster;
+using RocketMqtt.Application.Common;
+using RocketMqtt.Application.ConnInfos.Request;
+using RocketMqtt.Application.ConnInfos.Result;
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Infrastructure.SqlSugar;
-using RocketMqtt.Web.Core.Results;
 using SqlSugar;
 
 namespace RocketMqtt.Application.ConnInfos;
@@ -20,8 +22,11 @@ public class ConnInfoQuery : IConnInfoQuery
         return await _baseDbClient.Queryable<ConnInfo>().ToListAsync();
     }
 
-    public async Task<PageListResult<ConnInfo>> GetPageListAsync(BasePageRequest request)
+    public async Task<PageListResult<ConnInfoResult>> GetPageListAsync(ConnInfoPageRequest request)
     {
-        return await _baseDbClient.Queryable<ConnInfo>().ToPagedListAsync(request.PageIndex, request.PageSize);
+        return await _baseDbClient.Queryable<ConnInfo>()
+            .WhereIF(!string.IsNullOrWhiteSpace(request.ClientId), x => x.ClientId == request.ClientId)
+            .WhereIF(!string.IsNullOrWhiteSpace(request.UserName), x => x.UserName.Contains(request.UserName))
+            .ToPagedListAsync<ConnInfo,ConnInfoResult>(request.PageIndex, request.PageSize);
     }
 }

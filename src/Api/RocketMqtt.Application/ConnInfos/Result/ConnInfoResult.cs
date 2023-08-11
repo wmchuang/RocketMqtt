@@ -1,8 +1,6 @@
-﻿using MediatR;
+﻿namespace RocketMqtt.Application.ConnInfos.Result;
 
-namespace RocketMqtt.Application.ConnInfos.Command;
-
-public class CreateConnInfoCommand : IRequest<bool>
+public class ConnInfoResult
 {
     /// <summary>
     /// 客户端Id
@@ -24,5 +22,8 @@ public class CreateConnInfoCommand : IRequest<bool>
     /// </summary>
     public uint KeepAlive { get; set; }
 
- 
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    public string CreateTime { get; set; } = string.Empty;
 }

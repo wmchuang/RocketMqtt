@@ -28,7 +28,7 @@ axios.interceptors.request.use(
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -76,10 +76,25 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
-    Message.error({
-      content: error.msg || 'Request Error',
-      duration: 5 * 1000,
-    });
+    const errorObj = JSON.parse(JSON.stringify(error));
+    if (errorObj.status === 401) {
+      Modal.error({
+        title: 'Confirm logout',
+        content:
+          'You have been logged out, you can cancel to stay on this page, or log in again',
+        okText: 'Re-Login',
+        async onOk() {
+          const userStore = useUserStore();
+          await userStore.logout();
+          window.location.reload();
+        },
+      });
+    } else {
+      Message.error({
+        content: error.message || 'Request Error',
+        duration: 5 * 1000,
+      });
+    }
     return Promise.reject(error);
   }
 );

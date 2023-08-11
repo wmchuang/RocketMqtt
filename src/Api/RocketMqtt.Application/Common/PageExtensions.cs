@@ -1,4 +1,4 @@
-﻿using RocketMqtt.Web.Core.Results;
+﻿using Mapster;
 using SqlSugar;
 
 namespace RocketMqtt.Application.Common;
@@ -13,7 +13,7 @@ public static class PageExtensions
     /// <param name="pageIndex">页码，必须大于0</param>
     /// <param name="pageSize"></param>
     /// <returns></returns>
-    public static PageListResult<TEntity> ToPageList<TEntity>(this List<TEntity> entities,int pageIndex = 1, int pageSize = 20)
+    public static PageListResult<TEntity> ToPageList<TEntity>(this List<TEntity> entities, int pageIndex = 1, int pageSize = 20)
     {
         if (pageIndex <= 0)
             throw new InvalidOperationException($"{nameof(pageIndex)} must be a positive integer greater than 0.");
@@ -33,7 +33,7 @@ public static class PageExtensions
             HasPrevPages = pageIndex - 1 > 0
         };
     }
-    
+
     /// <summary>
     /// 分页拓展
     /// </summary>
@@ -52,6 +52,32 @@ public static class PageExtensions
             PageIndex = pageIndex,
             PageSize = pageSize,
             Items = items,
+            TotalCount = (int)totalCount,
+            TotalPages = totalPages,
+            HasNextPages = pageIndex < totalPages,
+            HasPrevPages = pageIndex - 1 > 0
+        };
+    }
+
+    /// <summary>
+    /// 分页拓展
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="pageIndex"></param>
+    /// <param name="pageSize"></param>
+    /// <returns></returns>
+    public static async Task<PageListResult<TResult>> ToPagedListAsync<TEntity, TResult>(this ISugarQueryable<TEntity> entity, int pageIndex, int pageSize)
+        where TEntity : new()
+    {
+        RefAsync<int> totalCount = 0;
+        var items = await entity.ToPageListAsync(pageIndex, pageSize, totalCount);
+        var result = items.Adapt<List<TResult>>();
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+        return new PageListResult<TResult>
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Items = result,
             TotalCount = (int)totalCount,
             TotalPages = totalPages,
             HasNextPages = pageIndex < totalPages,

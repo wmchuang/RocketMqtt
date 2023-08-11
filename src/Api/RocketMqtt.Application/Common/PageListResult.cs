@@ -1,4 +1,4 @@
-﻿namespace RocketMqtt.Web.Core.Results;
+﻿namespace RocketMqtt.Application.Common;
 
 /// <summary>
 /// 分页返回结果

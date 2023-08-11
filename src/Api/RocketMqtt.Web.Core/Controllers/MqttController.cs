@@ -1,10 +1,8 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using MQTTnet.Server;
-using RocketMqtt.Application;
-using RocketMqtt.Application.ConnInfos;
 using RocketMqtt.Application.ConnInfos.Command;
-using RocketMqtt.Domain.Domain;
 
 namespace RocketMqtt.Web.Core.Controllers;
 
@@ -13,11 +11,15 @@ namespace RocketMqtt.Web.Core.Controllers;
 /// </summary>
 public class MqttController
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IMediator _mediator;
 
+    /// <summary>
+    /// ctor
+    /// </summary>
+    /// <param name="serviceProvider"></param>
     public MqttController(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
+        _mediator = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IMediator>();
     }
 
     /// <summary>
@@ -29,16 +31,23 @@ public class MqttController
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' connected.");
 
-        using var scope = _serviceProvider.CreateScope();
-        
-        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
+        // 解析 IP 地址和端口号
+        var endPoint = IPEndPoint.Parse(eventArgs.Endpoint);
+
+        //转换IPv6的地址到IPv4
+        if (endPoint.Address.IsIPv4MappedToIPv6)
+        {
+            endPoint.Address = endPoint.Address.MapToIPv4();
+        }
+
         var command = new CreateConnInfoCommand()
         {
             ClientId = eventArgs.ClientId,
             UserName = eventArgs.UserName,
-            Endpoint1 = eventArgs.Endpoint
+            Endpoint = endPoint.ToString()
         };
-        await mediator.Send(command);
+        await _mediator.Send(command);
     }
 
     /// <summary>
@@ -57,9 +66,15 @@ public class MqttController
     /// </summary>
     /// <param name="eventArgs"></param>
     /// <returns></returns>
-    public Task ClientDisconnectedAsync(ClientDisconnectedEventArgs eventArgs)
+    public async Task ClientDisconnectedAsync(ClientDisconnectedEventArgs eventArgs)
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' wants to Disconnected!");
-        return Task.CompletedTask;
+
+
+        var command = new DeleteConnInfoCommand()
+        {
+            ClientId = eventArgs.ClientId,
+        };
+        await _mediator.Send(command);
     }
 }
