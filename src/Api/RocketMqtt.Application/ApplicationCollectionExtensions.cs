@@ -1,5 +1,6 @@
 ﻿using RocketMqtt.Application.ConnInfos;
 using RocketMqtt.Application.Mapper;
+using RocketMqtt.Application.Topics;
 
 namespace RocketMqtt.Application;
 
@@ -12,5 +13,6 @@ public static class ApplicationCollectionExtensions
         services.AddMapste();
         
         services.AddTransient<IConnInfoQuery, ConnInfoQuery>();
+        services.AddTransient<ITopicQuery, TopicQuery>();
     }
 }
