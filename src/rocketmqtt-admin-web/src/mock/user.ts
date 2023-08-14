@@ -8,6 +8,7 @@ import setupMock, {
 import { isLogin } from '@/utils/auth';
 
 setupMock({
+  // mock: false, //是否启动数据模拟
   setup() {
     // Mock.XHR.prototype.withCredentials = true;
 

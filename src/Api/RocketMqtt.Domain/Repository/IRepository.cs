@@ -5,8 +5,10 @@ namespace RocketMqtt.Domain.Repository;
 /// <summary>
 /// 领域泛型仓储
 /// </summary>
-public interface IDomainRepository<TDomain> where TDomain : class
+public interface IRepository<TDomain> where TDomain : class
 {
+    IUnitOfWork UnitOfWork { get; }
+    
     #region Select
 
     /// <summary>

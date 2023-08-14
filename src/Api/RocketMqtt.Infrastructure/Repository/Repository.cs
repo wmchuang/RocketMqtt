@@ -5,7 +5,7 @@ using RocketMqtt.Infrastructure.DbContext;
 
 namespace RocketMqtt.Infrastructure.Repository;
 
-public class DomainRepository<TEntity> : IDomainRepository<TEntity> where TEntity : EntityBase
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 {
     private List<TEntity> Entities => (List<TEntity>)(MemoryDbContext.GetInstance().SetEntities<TEntity>());
 
@@ -14,6 +14,8 @@ public class DomainRepository<TEntity> : IDomainRepository<TEntity> where TEntit
         Entities.Add(entity);
         return Task.CompletedTask;
     }
+
+    public IUnitOfWork UnitOfWork { get; }
 
     public async Task<TEntity?> GetAsync(string id)
     {

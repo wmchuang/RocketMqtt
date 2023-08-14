@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using MQTTnet.Server;
 using RocketMqtt.Application.ConnInfos.Command;
+using RocketMqtt.Application.Subscribeds.Command;
 
 namespace RocketMqtt.Web.Core.Controllers;
 
@@ -30,7 +31,6 @@ public class MqttController
     public async Task OnClientConnected(ClientConnectedEventArgs eventArgs)
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' connected.");
-
 
         // 解析 IP 地址和端口号
         var endPoint = IPEndPoint.Parse(eventArgs.Endpoint);
@@ -70,15 +70,13 @@ public class MqttController
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' wants to Disconnected!");
 
-
         var command = new DeleteConnInfoCommand()
         {
             ClientId = eventArgs.ClientId,
         };
         await _mediator.Send(command);
     }
-    
-    
+
     /// <summary>
     /// 客户端订阅主题
     /// </summary>
@@ -88,13 +86,12 @@ public class MqttController
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' wants to ClientSubscribedTopic!");
 
-        //
-        // var command = new DeleteConnInfoCommand()
-        // {
-        //     ClientId = eventArgs.ClientId,
-        // };
-        // await _mediator.Send(command);
+        var command = new CreateSubscribedCommand()
+        {
+            ClientId = eventArgs.ClientId,
+            TopicName = eventArgs.TopicFilter.Topic,
+            Qps = (int)eventArgs.TopicFilter.QualityOfServiceLevel,
+        };
+        await _mediator.Send(command);
     }
-    
-   
 }

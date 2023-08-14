@@ -5,18 +5,25 @@ using SqlSugar;
 
 namespace RocketMqtt.Infrastructure.SqlSugar;
 
-public class SqlSugarRepository<TEntity> : IDomainRepository<TEntity> where TEntity : EntityBase, new()
+public class SqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase, new()
 {
-    private readonly SqlSugarScopeProvider _client;
+    private readonly SqlSugarScopeProvider _scopeProvider;
+    
+    private readonly BaseDbClient _client;
 
     public SqlSugarRepository(BaseDbClient client)
     {
-        _client = client.Db;
+        _client = client;
+        _scopeProvider = client.Db;
+
+        UnitOfWork = client;
     }
+
+    public IUnitOfWork UnitOfWork { get; }
 
     public async Task<TEntity?> GetAsync(string id)
     {
-        return await _client.Queryable<TEntity>().FirstAsync(x => x.Id == id);
+        return await _scopeProvider.Queryable<TEntity>().FirstAsync(x => x.Id == id);
     }
 
     public Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = default)
@@ -26,7 +33,7 @@ public class SqlSugarRepository<TEntity> : IDomainRepository<TEntity> where TEnt
 
     public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _client.Queryable<TEntity>().FirstAsync(predicate);
+        return await _scopeProvider.Queryable<TEntity>().FirstAsync(predicate);
     }
 
     public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
@@ -36,7 +43,8 @@ public class SqlSugarRepository<TEntity> : IDomainRepository<TEntity> where TEnt
 
     public async Task AddAsync(TEntity entity)
     {
-        await _client.Insertable(entity).ExecuteCommandAsync();
+        await _scopeProvider.Insertable(entity).ExecuteCommandAsync();
+        _client.ModifiedEntities.Add(entity);
     }
 
     public Task AddRangeAsync(IEnumerable<TEntity> entity)
@@ -56,7 +64,8 @@ public class SqlSugarRepository<TEntity> : IDomainRepository<TEntity> where TEnt
 
     public async Task DeleteAsync(TEntity entity)
     {
-        await _client.Deleteable(entity).ExecuteCommandAsync();
+        await _scopeProvider.Deleteable(entity).ExecuteCommandAsync();
+        _client.ModifiedEntities.Add(entity);
     }
 
     public Task DeleteAsync(string id)

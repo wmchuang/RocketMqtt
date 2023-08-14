@@ -7,9 +7,9 @@ namespace RocketMqtt.Application.ConnInfos.Command;
 
 public class CreateConnInfoCommandHandler : IRequestHandler<CreateConnInfoCommand, bool>
 {
-    private readonly IDomainRepository<ConnInfo> _connInfoRep;
+    private readonly IRepository<ConnInfo> _connInfoRep;
 
-    public CreateConnInfoCommandHandler(IDomainRepository<ConnInfo> connInfoRep)
+    public CreateConnInfoCommandHandler(IRepository<ConnInfo> connInfoRep)
     {
         _connInfoRep = connInfoRep;
     }
@@ -18,8 +18,17 @@ public class CreateConnInfoCommandHandler : IRequestHandler<CreateConnInfoComman
     {
         var entity = request.Adapt<ConnInfo>();
 
-        await _connInfoRep.AddAsync(entity);
-
+        try
+        {
+            await _connInfoRep.AddAsync(entity);
+            await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+     
         return true;
     }
 }

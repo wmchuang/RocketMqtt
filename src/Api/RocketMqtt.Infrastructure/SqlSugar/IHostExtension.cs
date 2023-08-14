@@ -23,7 +23,17 @@ public static class IHostExtension
                                && typeof(EntityBase).IsAssignableFrom(type))
                 .ToArray();
 
-            context.Db.CodeFirst.SetStringDefaultLength(200).InitTables(types); //根据types创建表
+            try
+            {
+                context.Db.CodeFirst.SetStringDefaultLength(200).InitTables(types); //根据types创建表
+
+                context.SaveEntitiesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

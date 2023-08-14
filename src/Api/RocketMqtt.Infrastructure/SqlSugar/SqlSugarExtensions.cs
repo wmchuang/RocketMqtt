@@ -31,6 +31,7 @@ public static class SqlSugarExtensions
 
                 Console.WriteLine($"SQL:{sql}，pars：{pars}");
             };
+
             return db;
         });
 

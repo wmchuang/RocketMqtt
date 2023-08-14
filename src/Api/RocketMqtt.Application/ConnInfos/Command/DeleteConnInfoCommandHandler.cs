@@ -6,9 +6,9 @@ namespace RocketMqtt.Application.ConnInfos.Command;
 
 public class DeleteConnInfoCommandHandler : IRequestHandler<DeleteConnInfoCommand, bool>
 {
-    private readonly IDomainRepository<ConnInfo> _connInfoRep;
+    private readonly IRepository<ConnInfo> _connInfoRep;
 
-    public DeleteConnInfoCommandHandler(IDomainRepository<ConnInfo> connInfoRep)
+    public DeleteConnInfoCommandHandler(IRepository<ConnInfo> connInfoRep)
     {
         _connInfoRep = connInfoRep;
     }
@@ -18,6 +18,7 @@ public class DeleteConnInfoCommandHandler : IRequestHandler<DeleteConnInfoComman
         var entity = await _connInfoRep.FirstOrDefaultAsync(x => x.ClientId == request.ClientId);
 
         await _connInfoRep.DeleteAsync(entity);
+        await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
         return true;
     }

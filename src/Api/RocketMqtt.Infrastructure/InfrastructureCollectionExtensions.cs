@@ -11,6 +11,6 @@ public static class InfrastructureCollectionExtensions
     public static void AddInfrastructure(this IServiceCollection services)
     {
         // services.AddTransient(typeof(IDomainRepository<>), typeof(DomainRepository<>));
-        services.AddTransient(typeof(IDomainRepository<>), typeof(SqlSugarRepository<>));
+        services.AddTransient(typeof(IRepository<>), typeof(SqlSugarRepository<>));
     }
 }
