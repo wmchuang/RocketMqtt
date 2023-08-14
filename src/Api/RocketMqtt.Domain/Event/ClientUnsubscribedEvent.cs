@@ -2,11 +2,11 @@
 
 namespace RocketMqtt.Domain.Event;
 
-public class CreateSubscribedEvent : INotification
+public class ClientUnsubscribedEvent : INotification
 {
     public string TopicName { get; set; }
 
-    public CreateSubscribedEvent(string topicName)
+    public ClientUnsubscribedEvent(string topicName)
     {
         TopicName = topicName;
     }

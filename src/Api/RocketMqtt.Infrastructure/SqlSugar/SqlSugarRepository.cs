@@ -26,9 +26,9 @@ public class SqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : 
         return await _scopeProvider.Queryable<TEntity>().FirstAsync(x => x.Id == id);
     }
 
-    public Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = default)
+    public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = default)
     {
-        throw new NotImplementedException();
+        return await _scopeProvider.Queryable<TEntity>().Where(predicate).ToListAsync();
     }
 
     public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
@@ -36,9 +36,9 @@ public class SqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : 
         return await _scopeProvider.Queryable<TEntity>().FirstAsync(predicate);
     }
 
-    public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await _scopeProvider.Queryable<TEntity>().Where(predicate).AnyAsync();
     }
 
     public async Task AddAsync(TEntity entity)
@@ -78,8 +78,12 @@ public class SqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : 
         throw new NotImplementedException();
     }
 
-    public Task DeleteRangeAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task DeleteRangeAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
+        var entitys = await GetListAsync(predicate);
+        foreach (var entity in entitys)
+        {
+            await DeleteAsync(entity);
+        }
     }
 }

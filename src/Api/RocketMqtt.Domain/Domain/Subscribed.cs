@@ -20,13 +20,18 @@ public class Subscribed : EntityBase
         TopicName = topicName;
         Qps = qps;
 
-        AddCreateDomainEvent(topicName);
+        ClientSubscribed(topicName);
     }
 
-    private void AddCreateDomainEvent(string topicName)
+    private void ClientSubscribed(string topicName)
     {
-        var orderStartedDomainEvent = new CreateSubscribedEvent(topicName);
+        var @event = new ClientSubscribedEvent(topicName);
+        this.AddDomainEvent(@event);
+    }
 
-        this.AddDomainEvent(orderStartedDomainEvent);
+    public void UnSubscribed()
+    {
+        var @event = new ClientUnsubscribedEvent(this.TopicName);
+        this.AddDomainEvent(@event);
     }
 }

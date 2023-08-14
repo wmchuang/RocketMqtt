@@ -115,6 +115,7 @@ public class Startup
                 server.ClientConnectedAsync += mqttController.OnClientConnected;
                 server.ClientDisconnectedAsync += mqttController.ClientDisconnectedAsync;
                 server.ClientSubscribedTopicAsync += mqttController.ClientSubscribedTopicAsync;
+                server.ClientUnsubscribedTopicAsync += mqttController.ClientUnsubscribedTopicAsync;
             });
 
         app.UserSwaggerUi();

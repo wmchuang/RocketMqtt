@@ -94,4 +94,22 @@ public class MqttController
         };
         await _mediator.Send(command);
     }
+    
+    /// <summary>
+    /// 客户端取消订阅主题
+    /// </summary>
+    /// <param name="eventArgs"></param>
+    public async Task ClientUnsubscribedTopicAsync(ClientUnsubscribedTopicEventArgs eventArgs)
+    {
+        Console.WriteLine($"Client '{eventArgs.ClientId}' wants to ClientUnsubscribedTopic!");
+
+        var command = new ClientUnsubscribedCommand()
+        {
+            ClientId = eventArgs.ClientId,
+            TopicName = eventArgs.TopicFilter,
+        };
+        await _mediator.Send(command);
+    }
+    
+    
 }
