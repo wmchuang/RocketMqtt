@@ -1,5 +1,6 @@
 ﻿using RocketMqtt.Application.ConnInfos;
 using RocketMqtt.Application.Mapper;
+using RocketMqtt.Application.Subscribeds;
 using RocketMqtt.Application.Topics;
 
 namespace RocketMqtt.Application;
@@ -14,5 +15,6 @@ public static class ApplicationCollectionExtensions
         
         services.AddTransient<IConnInfoQuery, ConnInfoQuery>();
         services.AddTransient<ITopicQuery, TopicQuery>();
+        services.AddTransient<ISubscribedQuery, SubscribedQuery>();
     }
 }
