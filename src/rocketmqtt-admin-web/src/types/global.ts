@@ -24,7 +24,7 @@ export interface PostData {
 }
 
 export interface Pagination {
-  current: number;
+  pageIndex: number;
   pageSize: number;
   total?: number;
 }

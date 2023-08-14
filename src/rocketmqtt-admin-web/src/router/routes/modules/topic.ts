@@ -1,32 +1,32 @@
 import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
-const CLIENT: AppRouteRecordRaw = {
-    path: '/client',
-    name: 'client',
+const TOPIC: AppRouteRecordRaw = {
+    path: '/topic',
+    name: 'topic',
     component: DEFAULT_LAYOUT,
-    redirect: '/client/index',
+    redirect: '/topic/index',
     meta: {
-        locale: 'menu.client',
+        locale: 'menu.topic',
         requiresAuth: true,
         icon: 'icon-branch',
-        order: 1,
+        order: 2,
         hideInMenu: false,
     },
     children: [
         {
-          path: '/client/index',
-          name: 'clientIndex',
-          component: () => import('@/views/client/index.vue'),
+          path: '/topic/index',
+          name: 'topicIndex',
+          component: () => import('@/views/topic/index.vue'),
           meta: {
-            locale: 'menu.client',
+            locale: 'menu.topic',
             requiresAuth: true,
             roles: ['*'],
             hideInMenu: true,
-            activeMenu: "client"
+            activeMenu: "topic"
           },
         },
       ],
 };
 
-export default CLIENT;
+export default TOPIC;

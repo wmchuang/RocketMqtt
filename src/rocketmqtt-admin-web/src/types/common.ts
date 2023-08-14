@@ -9,6 +9,6 @@ export interface PageQueryResponseModel<T> {
   }
   
   export interface BasePageQueryRequestModel {
-    current: number;
+    pageIndex: number;
     pageSize: number;
   }

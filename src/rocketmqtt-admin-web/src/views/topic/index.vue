@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.client']" />
-    <a-card class="general-card" :title="$t('menu.client.search')">
-      <a-row>
+    <Breadcrumb :items="['menu.topic']" />
+    <a-card class="general-card" :title="$t('menu.topic.search')">
+      <!-- <a-row>
         <a-col :flex="1">
           <a-form
             :model="formModel"
@@ -12,22 +12,15 @@
           >
             <a-row :gutter="16">
               <a-col :span="8">
-                <a-form-item field="clientId" :label="$t('client.form.clientId')">
+                <a-form-item field="topicName" :label="$t('topic.form.topicName')">
                   <a-input
-                    v-model="formModel.clientId"
-                    :placeholder="$t('client.form.clientId')"
+                    v-model="formModel.topicName"
+                    :placeholder="$t('topic.form.topicName')"
                   />
                 </a-form-item>
               </a-col>
               
-              <a-col :span="8">
-                <a-form-item field="userName" :label="$t('client.form.userName')">
-                  <a-input
-                    v-model="formModel.name"
-                    :placeholder="$t('client.form.userName')"
-                  />
-                </a-form-item>
-              </a-col>
+            
             </a-row>
           </a-form>
         </a-col>
@@ -38,17 +31,17 @@
               <template #icon>
                 <icon-search />
               </template>
-              {{ $t('client.form.search') }}
+              {{ $t('topic.form.search') }}
             </a-button>
             <a-button @click="reset">
               <template #icon>
                 <icon-refresh />
               </template>
-              {{ $t('client.form.reset') }}
+              {{ $t('topic.form.reset') }}
             </a-button>
           </a-space>
         </a-col>
-      </a-row>
+      </a-row> -->
       <a-divider style="margin-top: 0" />
       <a-table
         row-key="id"
@@ -62,11 +55,6 @@
         <template #index="{ rowIndex }">
           {{ rowIndex + 1 + (pagination.pageIndex - 1) * pagination.pageSize }}
         </template>
-        <template #operations="{ record }">
-          <a-button v-permission="['admin']" type="text" size="small"  @click="Disconnect(record.clientId)" >
-            {{ $t('client.columns.operations.disconnect') }}
-          </a-button>
-        </template>
       </a-table>
     </a-card>
   </div>
@@ -77,7 +65,7 @@
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
   import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
-  import { PageRequest,PageResult,getPage,disconnect } from '@/api/conninfo'
+  import { PageRequest,PageResult,getPage } from '@/api/topic'
   import { Pagination } from '@/types/global';
   import cloneDeep from 'lodash/cloneDeep';
   import { Message } from '@arco-design/web-vue';
@@ -85,8 +73,7 @@
   type Column = TableColumnData & { checked?: true };
   const generateFormModel = () => {
     return {
-      clientId: '',
-      userName: ''
+      topicName: '',
     };
   };
   const { loading, setLoading } = useLoading(true);
@@ -104,42 +91,24 @@
   const showColumns = ref<Column[]>([]);
   const columns = computed<TableColumnData[]>(() => [
     {
-      title: t('client.columns.index'),
+      title: t('topic.columns.index'),
       dataIndex: 'index',
       slotName: 'index',
     },
     {
-      title: t('client.columns.clientId'),
-      dataIndex: 'clientId',
+      title: t('topic.columns.topicName'),
+      dataIndex: 'topicName',
     },
     {
-      title: t('client.columns.userName'),
-      dataIndex: 'userName',
-    },
-    {
-      title: t('client.columns.endpoint'),
-      dataIndex: 'endpoint',
-    },
-    {
-      title: t('client.columns.keepAlive'),
-      dataIndex: 'keepAlive',
-    },
-    {
-      title: t('client.columns.createTime'),
-      dataIndex: 'createTime',
-    },
-    {
-      title: t('client.columns.operations'),
-      dataIndex: 'operations',
-      slotName: 'operations',
+      title: t('topic.columns.node'),
+      dataIndex: 'node',
     },
   ]);
   const fetchData = async (
     params: PageRequest = {
       pageIndex: 1,
       pageSize: 15,
-      clientId: "",
-      userName: "",
+      topicName: "",
     }
   ) => {
     setLoading(true);
@@ -176,14 +145,6 @@
     formModel.value = generateFormModel();
   };
 
-  const Disconnect = async (id: string) => {
-    const { data } = await disconnect(id);
-    console.log(data);
-    if(data === true)
-    {
-      //  fetchData();  //删除这一行
-    }
-  };
 
   watch(
     () => columns.value,
