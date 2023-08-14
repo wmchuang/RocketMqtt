@@ -5,12 +5,17 @@ using RocketMqtt.Web.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var kestrelSettings = builder.Configuration.GetSection("KestrelSettings");
+var mqttPipeline = kestrelSettings.GetValue<int>("MQTTPipeline");
+var httpPipeline = kestrelSettings.GetValue<int>("HttpPipeline");
+var httpsPipeline = kestrelSettings.GetValue<int>("HttpsPipeline");
 
 builder.WebHost.UseKestrel(o =>
 {
     // This will allow MQTT connections based on TCP port 1883.
-    o.ListenAnyIP(1884, l => l.UseMqtt());
-    o.ListenAnyIP(8080); 
+    o.ListenAnyIP(mqttPipeline, l => l.UseMqtt());
+    o.ListenAnyIP(httpPipeline); 
+    o.ListenAnyIP(httpsPipeline, l => l.UseHttps());
 });
 
 builder.WebHost.UseNLog();
