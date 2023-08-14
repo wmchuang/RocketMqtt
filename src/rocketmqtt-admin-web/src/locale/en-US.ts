@@ -26,9 +26,14 @@ import locale500 from '@/views/exception/500/locale/en-US';
 import localeUserInfo from '@/views/user/info/locale/en-US';
 import localeUserSetting from '@/views/user/setting/locale/en-US';
 
+import localeClient from '@/views/client/locale/en-US';
+import localeTopic from '@/views/topic/locale/en-US';
+
 import localeSettings from './en-US/settings';
 
 export default {
+  'menu.client': 'Client',
+  'menu.topic': 'Topic',
   'menu.dashboard': 'Dashboard',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',
@@ -64,4 +69,6 @@ export default {
   ...locale500,
   ...localeUserInfo,
   ...localeUserSetting,
+  ...localeClient,
+  ...localeTopic,
 };

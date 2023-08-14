@@ -1,16 +1,10 @@
 export default {
-  'menu.client.search': 'Search Table',
-  'client.form.clientId': 'Client ID',
-  'client.form.userName': 'UserName',
-  'client.form.search': 'Search',
-  'client.form.reset': 'Reset',
+  'menu.topic.search': 'Search Table',
+  'topic.form.topicName': 'Topic',
+  'topic.form.search': 'Search',
+  'topic.form.reset': 'Reset',
   // columns
-  'client.columns.index': '#',
-  'client.columns.clientId': 'Client ID',
-  'client.columns.userName': 'UserName',
-  'client.columns.endpoint': 'IP',
-  'client.columns.keepAlive': 'KeepAlive',
-  'client.columns.createTime': 'CreateTime',
-  'client.columns.operations': 'Operations',
-  'client.columns.operations.disconnect': 'Disconnect',
+  'topic.columns.index': '#',
+  'topic.columns.topicName': 'Topic',
+  'topic.columns.node': 'Node',
 };
