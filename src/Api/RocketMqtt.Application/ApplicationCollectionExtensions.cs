@@ -1,7 +1,5 @@
-﻿using RocketMqtt.Application.ConnInfos;
+﻿using System.Reflection;
 using RocketMqtt.Application.Mapper;
-using RocketMqtt.Application.Subscribeds;
-using RocketMqtt.Application.Topics;
 
 namespace RocketMqtt.Application;
 
@@ -12,9 +10,21 @@ public static class ApplicationCollectionExtensions
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddMapste();
-        
-        services.AddTransient<IConnInfoQuery, ConnInfoQuery>();
-        services.AddTransient<ITopicQuery, TopicQuery>();
-        services.AddTransient<ISubscribedQuery, SubscribedQuery>();
+
+        // 获取当前程序集
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // 获取结尾是Query的类型
+        var serviceTypes = assembly.GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("Query")).ToList();
+
+        // 批量注入
+        foreach (var type in serviceTypes)
+        {
+            var interfaceList = type.GetInterfaces();
+            if (!interfaceList.Any()) continue;
+            var inter = interfaceList.First();
+            services.AddTransient(inter, type);
+        }
     }
 }
