@@ -15,7 +15,7 @@ public class CreateSubscribedCommandHandler : IRequestHandler<CreateSubscribedCo
 
     public async Task<bool> Handle(CreateSubscribedCommand request, CancellationToken cancellationToken)
     {
-        var entity = new Subscribed(request.ClientId,request.TopicName,request.Qps);
+        var entity = new Subscribed(request.ClientId,request.TopicName,request.Qos);
 
         await _subscribedRep.AddAsync(entity);
         await _subscribedRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);

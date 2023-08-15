@@ -8,5 +8,5 @@ export default {
   'subscribed.columns.index': '#',
   'subscribed.columns.topicName': 'Topic',
   'subscribed.columns.clientId': 'Client ID',
-  'subscribed.columns.qps': 'Qps',
+  'subscribed.columns.qos': 'Qos',
 };

@@ -9,7 +9,7 @@ export interface PageRequest extends BasePageQueryRequestModel {
 export interface PageResult {
     topicName: string;
     clientId: string;
-    qps: number;
+    qos: number;
 }
 
 export function getPage(data: BasePageQueryRequestModel) {

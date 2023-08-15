@@ -6,5 +6,5 @@ public class SubscribedResult
 
     public string TopicName { get; set; }
 
-    public int Qps { get; set; }
+    public int Qos { get; set; }
 }

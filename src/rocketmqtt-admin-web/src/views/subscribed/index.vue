@@ -112,8 +112,8 @@
       dataIndex: 'topicName',
     },
     {
-      title: t('subscribed.columns.qps'),
-      dataIndex: 'qps',
+      title: t('subscribed.columns.qos'),
+      dataIndex: 'qos',
     },
     
   ]);

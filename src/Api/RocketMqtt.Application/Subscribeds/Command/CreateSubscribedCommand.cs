@@ -8,5 +8,5 @@ public class CreateSubscribedCommand : IRequest<bool>
 
     public string TopicName { get; set; } = string.Empty;
 
-    public int Qps { get; set; }
+    public int Qos { get; set; }
 }

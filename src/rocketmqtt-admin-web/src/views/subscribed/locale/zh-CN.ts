@@ -8,5 +8,5 @@ export default {
   'subscribed.columns.index': '#',
   'subscribed.columns.topicName': '主题',
   'subscribed.columns.clientId': '客户端ID',
-  'subscribed.columns.qps': 'Qps',
+  'subscribed.columns.qos': 'Qos',
 };

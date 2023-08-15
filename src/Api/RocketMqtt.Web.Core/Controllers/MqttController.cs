@@ -90,7 +90,7 @@ public class MqttController
         {
             ClientId = eventArgs.ClientId,
             TopicName = eventArgs.TopicFilter.Topic,
-            Qps = (int)eventArgs.TopicFilter.QualityOfServiceLevel,
+            Qos = (int)eventArgs.TopicFilter.QualityOfServiceLevel,
         };
         await _mediator.Send(command);
     }

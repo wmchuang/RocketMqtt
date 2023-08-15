@@ -8,17 +8,17 @@ public class Subscribed : EntityBase
 
     public string TopicName { get; set; }
 
-    public int Qps { get; set; }
+    public int Qos { get; set; }
 
     public Subscribed()
     {
     }
 
-    public Subscribed(string clientId, string topicName, int qps) : this()
+    public Subscribed(string clientId, string topicName, int qos) : this()
     {
         ClientId = clientId;
         TopicName = topicName;
-        Qps = qps;
+        Qos = qos;
 
         ClientSubscribed(topicName);
     }
