@@ -28,6 +28,7 @@ import localeUserSetting from '@/views/user/setting/locale/zh-CN';
 
 import localeClient from '@/views/client/locale/zh-CN';
 import localeTopic from '@/views/topic/locale/zh-CN';
+import localeSubscribed from '@/views/subscribed/locale/zh-CN';
 
 import localeSettings from './zh-CN/settings';
 
@@ -36,6 +37,7 @@ import localeSettings from './zh-CN/settings';
 export default {
   'menu.client': '客户端',
   'menu.topic': '主题',
+  'menu.subscribed': '订阅',
   'menu.dashboard': '仪表盘',
   'menu.server.dashboard': '仪表盘-服务端',
   'menu.server.workplace': '工作台-服务端',
@@ -73,4 +75,5 @@ export default {
   ...localeUserSetting,
   ...localeClient,
   ...localeTopic,
+  ...localeSubscribed,
 };

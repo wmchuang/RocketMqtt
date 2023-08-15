@@ -9,7 +9,7 @@ const CLIENT: AppRouteRecordRaw = {
     meta: {
         locale: 'menu.client',
         requiresAuth: true,
-        icon: 'icon-branch',
+        icon: 'icon-desktop',
         order: 1,
         hideInMenu: false,
     },

@@ -28,12 +28,14 @@ import localeUserSetting from '@/views/user/setting/locale/en-US';
 
 import localeClient from '@/views/client/locale/en-US';
 import localeTopic from '@/views/topic/locale/en-US';
+import localeSubscribed from '@/views/subscribed/locale/en-US';
 
 import localeSettings from './en-US/settings';
 
 export default {
   'menu.client': 'Client',
   'menu.topic': 'Topic',
+  'menu.subscribed': 'Subscribed',
   'menu.dashboard': 'Dashboard',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',
@@ -71,4 +73,5 @@ export default {
   ...localeUserSetting,
   ...localeClient,
   ...localeTopic,
+  ...localeSubscribed,
 };
