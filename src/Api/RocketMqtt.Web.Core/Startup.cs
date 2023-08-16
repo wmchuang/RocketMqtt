@@ -1,13 +1,16 @@
-﻿using Coldairarrow.Util;
+﻿using System.Reflection;
+using Coldairarrow.Util;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using MQTTnet.AspNetCore;
 using RocketMqtt.Application;
 using RocketMqtt.Infrastructure;
+using RocketMqtt.Infrastructure.EFCore;
 using RocketMqtt.Web.Core.Controllers;
 using RocketMqtt.Web.Core.Filters;
 
@@ -25,15 +28,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging();
-        services.AddControllers(options =>
-        {
-            options.Filters.Add<DataValidationFilter>();
-            options.Filters.Add<ResultFilter>();
-        }).ConfigureApiBehaviorOptions(options =>
-        {
-            //关掉自带的模型验证
-            options.SuppressModelStateInvalidFilter = true;
-        });
+       
         
         services.AddHostedMqttServer(
             optionsBuilder => { optionsBuilder.WithDefaultEndpoint(); });
@@ -70,9 +65,34 @@ public class Startup
         
         var connectionConfigs = Configuration.GetSection("ConnectionConfigs").Get<List<SqlSugar.ConnectionConfig>>();
         services.AddSqlSugarSetup(connectionConfigs);
-        
-        
+
+        var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+        // services.AddEFCoreContext(Configuration,migrationsAssembly);
+
         services.AddMediatR(typeof(ApplicationCollectionExtensions));
+
+        var m = Configuration["ConnectionString"];
+        Console.WriteLine(m);
+        services.AddDbContext<DataContext>(options =>
+        {
+            options.UseSqlite( m,
+                sqliteOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly(migrationsAssembly);
+                });
+        });
+        
+        
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<DataValidationFilter>();
+            options.Filters.Add<ResultFilter>();
+        }).ConfigureApiBehaviorOptions(options =>
+        {
+            //关掉自带的模型验证
+            options.SuppressModelStateInvalidFilter = true;
+        });
+        
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)

@@ -29,5 +29,5 @@ var app = builder.Build();
 startup.Configure(app, app.Environment);
 
 
-app.MigrateDbContext();
+// app.MigrateDbContext();
 app.Run();
