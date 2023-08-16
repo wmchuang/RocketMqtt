@@ -23,7 +23,7 @@
               <a-col :span="8">
                 <a-form-item field="userName" :label="$t('client.form.userName')">
                   <a-input
-                    v-model="formModel.name"
+                    v-model="formModel.userName"
                     :placeholder="$t('client.form.userName')"
                   />
                 </a-form-item>

@@ -194,7 +194,7 @@
         @page-change="onPageChange"
       >
         <template #index="{ rowIndex }">
-          {{ rowIndex + 1 + (pagination.current - 1) * pagination.pageSize }}
+          {{ rowIndex + 1 + (pagination.pageIndex - 1) * pagination.pageSize }}
         </template>
         <template #contentType="{ record }">
           <a-space>
@@ -279,7 +279,7 @@
   const size = ref<SizeProps>('medium');
 
   const basePagination: Pagination = {
-    current: 1,
+    pageIndex: 1,
     pageSize: 20,
   };
   const pagination = reactive({
@@ -386,7 +386,7 @@
     try {
       const { data } = await queryPolicyList(params);
       renderData.value = data.list;
-      pagination.current = params.current;
+      pagination.pageIndex = params.current;
       pagination.total = data.total;
     } catch (err) {
       // you can report use errorHandler or other
