@@ -1,1 +1,3 @@
 /src/Api/RocketMqtt/*.sqlite
+/src/Api/RocketMqtt/RocketMqtt.sqlite-wal
+/src/Api/RocketMqtt/RocketMqtt.sqlite-shm

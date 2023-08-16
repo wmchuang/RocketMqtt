@@ -4,10 +4,19 @@ namespace RocketMqtt.Domain.Event;
 
 public class ClientUnsubscribedEvent : INotification
 {
+    /// <summary>
+    /// 客户端Id
+    /// </summary>
+    public string ClientId { get; set; }
+
+    /// <summary>
+    /// 主题
+    /// </summary>
     public string TopicName { get; set; }
 
-    public ClientUnsubscribedEvent(string topicName)
+    public ClientUnsubscribedEvent(string clientId, string topicName)
     {
+        ClientId = clientId;
         TopicName = topicName;
     }
 }

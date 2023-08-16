@@ -20,18 +20,18 @@ public class Subscribed : EntityBase
         TopicName = topicName;
         Qos = qos;
 
-        ClientSubscribed(topicName);
+        ClientSubscribed(clientId, topicName);
     }
 
-    private void ClientSubscribed(string topicName)
+    private void ClientSubscribed(string clientId, string topicName)
     {
-        var @event = new ClientSubscribedEvent(topicName);
+        var @event = new ClientSubscribedEvent(clientId, topicName);
         this.AddDomainEvent(@event);
     }
 
     public void UnSubscribed()
     {
-        var @event = new ClientUnsubscribedEvent(this.TopicName);
+        var @event = new ClientUnsubscribedEvent(this.ClientId, this.TopicName);
         this.AddDomainEvent(@event);
     }
 }
