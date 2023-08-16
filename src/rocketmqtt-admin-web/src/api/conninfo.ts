@@ -12,6 +12,7 @@ export interface PageResult {
     userName: string;
     endpoint: string;
     keepAlive: number;
+    subscribeCount: number;
     createTime: string;
 }
 

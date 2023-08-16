@@ -11,7 +11,7 @@ using RocketMqtt.Infrastructure.EFCore;
 namespace RocketMqtt.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230816070057_Init")]
+    [Migration("20230816075731_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -46,6 +46,10 @@ namespace RocketMqtt.Migrations
                     b.Property<uint>("KeepAlive")
                         .HasColumnType("INTEGER")
                         .HasComment("心跳（秒）");
+
+                    b.Property<int>("SubscribeCount")
+                        .HasColumnType("INTEGER")
+                        .HasComment("订阅数量");
 
                     b.Property<string>("UserName")
                         .IsRequired()

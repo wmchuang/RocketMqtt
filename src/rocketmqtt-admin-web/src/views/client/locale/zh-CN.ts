@@ -14,6 +14,7 @@ export default {
   'client.columns.userName': '用户名',
   'client.columns.endpoint': 'IP地址',
   'client.columns.keepAlive': '心跳（秒）',
+  'client.columns.subscribeCount': '订阅数量',
   'client.columns.createTime': '会话创建时间',
   'client.columns.operations': '操作',
   'client.columns.operations.disconnect': '踢出',

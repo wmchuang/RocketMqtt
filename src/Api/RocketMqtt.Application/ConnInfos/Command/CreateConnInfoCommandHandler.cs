@@ -20,7 +20,14 @@ public class CreateConnInfoCommandHandler : IRequestHandler<CreateConnInfoComman
 
         try
         {
+            var existEntity = await _connInfoRep.FirstOrDefaultAsync(x => x.ClientId == request.ClientId);
+            if (existEntity != null)
+            {
+                await _connInfoRep.DeleteAsync(existEntity);
+            }
+
             await _connInfoRep.AddAsync(entity);
+
             await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }
         catch (Exception e)
@@ -28,7 +35,7 @@ public class CreateConnInfoCommandHandler : IRequestHandler<CreateConnInfoComman
             Console.WriteLine(e);
             throw;
         }
-     
+
         return true;
     }
 }

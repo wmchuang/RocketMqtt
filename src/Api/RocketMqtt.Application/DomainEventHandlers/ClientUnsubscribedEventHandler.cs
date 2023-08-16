@@ -27,3 +27,25 @@ public class ClientUnsubscribedEventHandler : INotificationHandler<ClientUnsubsc
         await _topicRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
     }
 }
+
+public class ClientUnsubscribedEventCutSubCountHandler : INotificationHandler<ClientUnsubscribedEvent>
+{
+    private readonly IRepository<ConnInfo> _connInfoRep;
+
+    public ClientUnsubscribedEventCutSubCountHandler(IRepository<ConnInfo> connInfoRep)
+    {
+        _connInfoRep = connInfoRep;
+    }
+
+    public async Task Handle(ClientUnsubscribedEvent notification, CancellationToken cancellationToken)
+    {
+        var entity = await _connInfoRep.FirstOrDefaultAsync(x => x.ClientId == notification.ClientId);
+        if (entity == null) return;
+
+        entity.CutSubscribeCount();
+
+        await _connInfoRep.UpdateAsync(entity);
+
+        await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+    }
+}

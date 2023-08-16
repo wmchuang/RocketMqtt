@@ -31,7 +31,17 @@ public class MqttController
     public async Task OnClientConnected(ClientConnectedEventArgs eventArgs)
     {
         Console.WriteLine($"Client '{eventArgs.ClientId}' connected.");
+    }
 
+    /// <summary>
+    /// 验证连接
+    /// </summary>
+    /// <param name="eventArgs"></param>
+    /// <returns></returns>
+    public async Task ValidateConnection(ValidatingConnectionEventArgs eventArgs)
+    {
+        Console.WriteLine($"Client '{eventArgs.ClientId}' wants to connect. Accepting!");
+        
         // 解析 IP 地址和端口号
         var endPoint = IPEndPoint.Parse(eventArgs.Endpoint);
 
@@ -45,20 +55,11 @@ public class MqttController
         {
             ClientId = eventArgs.ClientId,
             UserName = eventArgs.UserName,
-            Endpoint = endPoint.ToString()
+            Endpoint = endPoint.ToString(),
+            KeepAlive = (uint)eventArgs.KeepAlivePeriod
         };
         await _mediator.Send(command);
-    }
-
-    /// <summary>
-    /// 验证连接
-    /// </summary>
-    /// <param name="eventArgs"></param>
-    /// <returns></returns>
-    public Task ValidateConnection(ValidatingConnectionEventArgs eventArgs)
-    {
-        Console.WriteLine($"Client '{eventArgs.ClientId}' wants to connect. Accepting!");
-        return Task.CompletedTask;
+        
     }
 
     /// <summary>

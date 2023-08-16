@@ -14,7 +14,7 @@
               <a-col :span="8">
                 <a-form-item field="clientId" :label="$t('subscribed.form.clientId')">
                   <a-input
-                    v-model="formModel.topicName"
+                    v-model="formModel.clientId"
                     :placeholder="$t('subscribed.form.clientId')"
                   />
                 </a-form-item>

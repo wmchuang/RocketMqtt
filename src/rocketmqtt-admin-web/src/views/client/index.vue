@@ -125,6 +125,10 @@
       dataIndex: 'keepAlive',
     },
     {
+      title: t('client.columns.subscribeCount'),
+      dataIndex: 'subscribeCount',
+    },
+    {
       title: t('client.columns.createTime'),
       dataIndex: 'createTime',
     },

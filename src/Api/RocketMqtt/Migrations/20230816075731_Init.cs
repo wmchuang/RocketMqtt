@@ -20,6 +20,7 @@ namespace RocketMqtt.Migrations
                     UserName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false, comment: "客户端用户名"),
                     Endpoint = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false, comment: "地址"),
                     KeepAlive = table.Column<uint>(type: "INTEGER", nullable: false, comment: "心跳（秒）"),
+                    SubscribeCount = table.Column<int>(type: "INTEGER", nullable: false, comment: "订阅数量"),
                     CreateTime = table.Column<DateTime>(type: "TEXT", nullable: false, comment: "创建时间")
                 },
                 constraints: table =>

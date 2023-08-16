@@ -10,6 +10,7 @@ export default {
   'client.columns.userName': 'UserName',
   'client.columns.endpoint': 'IP',
   'client.columns.keepAlive': 'KeepAlive',
+  'client.columns.subscribeCount': 'Subscribe Count',
   'client.columns.createTime': 'CreateTime',
   'client.columns.operations': 'Operations',
   'client.columns.operations.disconnect': 'Disconnect',

@@ -44,6 +44,10 @@ namespace RocketMqtt.Migrations
                         .HasColumnType("INTEGER")
                         .HasComment("心跳（秒）");
 
+                    b.Property<int>("SubscribeCount")
+                        .HasColumnType("INTEGER")
+                        .HasComment("订阅数量");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(100)

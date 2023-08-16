@@ -13,6 +13,7 @@ public class ConnInfoEtc : EntityTypeConfiguration<ConnInfo>
         builder.Property(x => x.UserName).IsRequired().HasMaxLength(100).HasComment("客户端用户名");
         builder.Property(x => x.Endpoint).IsRequired().HasMaxLength(100).HasComment("地址");
         builder.Property(x => x.KeepAlive).HasComment("心跳（秒）");
+        builder.Property(x => x.SubscribeCount).HasComment("订阅数量");
         builder.Property(x => x.CreateTime).IsRequired().HasComment("创建时间");
     }
 }

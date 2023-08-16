@@ -21,6 +21,11 @@ public class ConnInfoResult
     /// 心跳（秒）
     /// </summary>
     public uint KeepAlive { get; set; }
+    
+    /// <summary>
+    /// 订阅数量
+    /// </summary>
+    public int SubscribeCount { get; set; }
 
     /// <summary>
     /// 创建时间
