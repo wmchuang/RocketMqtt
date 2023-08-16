@@ -28,8 +28,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging();
-       
-        
+
         services.AddHostedMqttServer(
             optionsBuilder => { optionsBuilder.WithDefaultEndpoint(); });
 
@@ -43,7 +42,7 @@ public class Startup
                 Version = "v1.0"
             });
         });
-        
+
         services.AddJwt();
         services.AddCors(options =>
         {
@@ -55,34 +54,20 @@ public class Startup
             });
         });
 
-
         services.AddSingleton<MqttController>();
 
         new IdHelperBootstrapper().SetWorkderId(0).Boot();
 
         services.AddInfrastructure();
         services.AddApplication();
-        
+
         var connectionConfigs = Configuration.GetSection("ConnectionConfigs").Get<List<SqlSugar.ConnectionConfig>>();
         services.AddSqlSugarSetup(connectionConfigs);
 
-        var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-        // services.AddEFCoreContext(Configuration,migrationsAssembly);
+        services.AddEFCoreContext(Configuration, "RocketMqtt");
 
         services.AddMediatR(typeof(ApplicationCollectionExtensions));
 
-        var m = Configuration["ConnectionString"];
-        Console.WriteLine(m);
-        services.AddDbContext<DataContext>(options =>
-        {
-            options.UseSqlite( m,
-                sqliteOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(migrationsAssembly);
-                });
-        });
-        
-        
         services.AddControllers(options =>
         {
             options.Filters.Add<DataValidationFilter>();
@@ -92,7 +77,6 @@ public class Startup
             //关掉自带的模型验证
             options.SuppressModelStateInvalidFilter = true;
         });
-        
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
@@ -100,10 +84,10 @@ public class Startup
         app.UseRouting();
 
         app.UseCors("AllowAll");
-        
+
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         var mqttController = app.ApplicationServices.GetService<MqttController>();
         app.UseMqttServer(
             server =>
