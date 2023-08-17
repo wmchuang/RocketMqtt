@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using RocketMqtt.Util.Model;
 using SqlSugar;
 
 namespace RocketMqtt.Application.Common;

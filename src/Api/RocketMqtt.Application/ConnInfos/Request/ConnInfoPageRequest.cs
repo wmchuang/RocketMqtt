@@ -1,4 +1,5 @@
 ﻿using RocketMqtt.Application.Common;
+using RocketMqtt.Util.Model;
 
 namespace RocketMqtt.Application.ConnInfos.Request;
 

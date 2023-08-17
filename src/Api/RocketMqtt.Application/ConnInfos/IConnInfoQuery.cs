@@ -2,6 +2,7 @@
 using RocketMqtt.Application.ConnInfos.Request;
 using RocketMqtt.Application.ConnInfos.Result;
 using RocketMqtt.Domain.Domain;
+using RocketMqtt.Util.Model;
 
 namespace RocketMqtt.Application.ConnInfos;
 

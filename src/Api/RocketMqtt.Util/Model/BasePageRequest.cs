@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RocketMqtt.Application.Common;
+namespace RocketMqtt.Util.Model;
 
 public class BasePageRequest
 {

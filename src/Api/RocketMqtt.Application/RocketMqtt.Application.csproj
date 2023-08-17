@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\RocketMqtt.Domain\RocketMqtt.Domain.csproj" />
       <ProjectReference Include="..\RocketMqtt.Infrastructure\RocketMqtt.Infrastructure.csproj" />
+      <ProjectReference Include="..\RocketMqtt.Util\RocketMqtt.Util.csproj" />
     </ItemGroup>
 
     <ItemGroup>

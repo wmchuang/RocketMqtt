@@ -3,6 +3,7 @@ using RocketMqtt.Application.Topics.Request;
 using RocketMqtt.Application.Topics.Result;
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Infrastructure.SqlSugar;
+using RocketMqtt.Util.Model;
 using SqlSugar;
 
 namespace RocketMqtt.Application.Topics;

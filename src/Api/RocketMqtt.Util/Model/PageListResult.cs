@@ -1,4 +1,4 @@
-﻿namespace RocketMqtt.Application.Common;
+﻿namespace RocketMqtt.Util.Model;
 
 /// <summary>
 /// 分页返回结果

@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RocketMqtt.Application.User.Request;
-using RocketMqtt.Application.User.Result;
+using RocketMqtt.Application.Users;
+using RocketMqtt.Application.Users.Command;
+using RocketMqtt.Application.Users.Request;
+using RocketMqtt.Application.Users.Result;
+using RocketMqtt.Util.Model;
 using RocketMqtt.Web.Core.Jwt;
 
 namespace RocketMqtt.Web.Core.Controllers;
@@ -12,18 +16,24 @@ namespace RocketMqtt.Web.Core.Controllers;
 public class UserController : BaseController
 {
     private readonly TokenService _tokenService;
+    private readonly IMediator _mediator;
+    private readonly IUserQuery _userQuery;
 
     /// <summary>
     /// ctor
     /// </summary>
     /// <param name="tokenService"></param>
-    public UserController(TokenService tokenService)
+    /// <param name="mediator"></param>
+    /// <param name="userQuery"></param>
+    public UserController(TokenService tokenService, IMediator mediator, IUserQuery userQuery)
     {
         _tokenService = tokenService;
+        _mediator = mediator;
+        _userQuery = userQuery;
     }
 
     /// <summary>
-    /// Login
+    /// 登录
     /// </summary>
     /// <returns></returns>
     [HttpPost]
@@ -36,5 +46,26 @@ public class UserController : BaseController
             Token = token,
             FullName = "Admin"
         };
+    }
+
+    /// <summary>
+    /// 添加
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> AddAsync(CreateUserCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+
+    /// <summary>
+    /// 分页列表
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public Task<PageListResult<UserResult>> PageListAsync(UserPageRequest request)
+    {
+        return _userQuery.GetPageListAsync(request);
     }
 }

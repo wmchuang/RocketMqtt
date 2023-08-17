@@ -1,4 +1,4 @@
-﻿namespace RocketMqtt.Application.User.Result;
+﻿namespace RocketMqtt.Application.Users.Result;
 
 public class LoginResult
 {

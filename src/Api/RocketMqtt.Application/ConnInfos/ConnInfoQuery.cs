@@ -4,6 +4,7 @@ using RocketMqtt.Application.ConnInfos.Request;
 using RocketMqtt.Application.ConnInfos.Result;
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Infrastructure.SqlSugar;
+using RocketMqtt.Util.Model;
 using SqlSugar;
 
 namespace RocketMqtt.Application.ConnInfos;

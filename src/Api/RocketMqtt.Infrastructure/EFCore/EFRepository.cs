@@ -5,7 +5,7 @@ using RocketMqtt.Domain.Repository;
 
 namespace RocketMqtt.Infrastructure.EFCore;
 
-public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase, new()
+public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 {
     private readonly DataContext _context;
 

@@ -3,6 +3,7 @@ using RocketMqtt.Application.Common;
 using RocketMqtt.Application.Subscribeds;
 using RocketMqtt.Application.Subscribeds.Request;
 using RocketMqtt.Application.Subscribeds.Result;
+using RocketMqtt.Util.Model;
 
 namespace RocketMqtt.Web.Core.Controllers;
 

@@ -3,6 +3,7 @@ using RocketMqtt.Application.Subscribeds.Request;
 using RocketMqtt.Application.Subscribeds.Result;
 using RocketMqtt.Domain.Domain;
 using RocketMqtt.Infrastructure.SqlSugar;
+using RocketMqtt.Util.Model;
 using SqlSugar;
 
 namespace RocketMqtt.Application.Subscribeds;

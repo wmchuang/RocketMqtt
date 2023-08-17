@@ -1,4 +1,4 @@
-﻿namespace RocketMqtt.Application.User.Request;
+﻿namespace RocketMqtt.Application.Users.Request;
 
 /// <summary>
 /// 登录请求
