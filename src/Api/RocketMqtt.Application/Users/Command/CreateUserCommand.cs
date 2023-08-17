@@ -17,5 +17,5 @@ public class CreateUserCommand : IRequest<bool>
     /// <summary>
     /// 备注
     /// </summary>
-    public string Remak { get; set; }
+    public string Remark { get; set; }
 }

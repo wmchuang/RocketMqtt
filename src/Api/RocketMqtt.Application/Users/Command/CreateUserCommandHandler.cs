@@ -22,7 +22,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
             throw new OperationException("已存在的用户名");
         }
 
-        var user = new User(request.UserName, request.Password, request.Remak);
+        var user = new User(request.UserName, request.Password, request.Remark);
         await _userRep.AddAsync(user);
 
         await _userRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
