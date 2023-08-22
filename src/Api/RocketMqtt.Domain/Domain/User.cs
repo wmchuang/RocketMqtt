@@ -1,5 +1,7 @@
-﻿using RocketMqtt.Util.Security;
+﻿using RocketMqtt.Util.Exception;
+using RocketMqtt.Util.Security;
 using RocketMqtt.Util.Extension;
+
 namespace RocketMqtt.Domain.Domain;
 
 public class User : EntityBase
@@ -45,5 +47,31 @@ public class User : EntityBase
     private string CreatePassword(string password, string salt)
     {
         return string.Concat(password, salt ?? "").ToMd5String();
+    }
+
+    /// <summary>
+    /// 修改备注
+    /// </summary>
+    /// <param name="remark"></param>
+    public void UpdateRemark(string remark)
+    {
+        Remark = remark;
+    }
+
+    /// <summary>
+    /// 修改密码
+    /// </summary>
+    /// <param name="password"></param>
+    /// <param name="newPassword"></param>
+    /// <param name="confirmPassword"></param>
+    public void UpdatePassword(string password, string newPassword, string confirmPassword)
+    {
+        if (Password != CreatePassword(password, Salt))
+            throw new OperationException("旧密码输入错误");
+
+        if (newPassword != confirmPassword)
+            throw new OperationException("俩次输入的密码不一致");
+
+        Password = CreatePassword(newPassword, Salt);
     }
 }

@@ -71,6 +71,28 @@ public class UserController : BaseController
     }
 
     /// <summary>
+    /// 修改备注
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> UpdateRemarkAsync(UpdateUserRemarkCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+
+    /// <summary>
+    /// 修改账户信息
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> UpdateAsync(UpdateUserCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+
+    /// <summary>
     /// 分页列表
     /// </summary>
     /// <returns></returns>
