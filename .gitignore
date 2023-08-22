@@ -4,3 +4,4 @@
 /src/Api/RocketMqtt/RocketMqtt.db-wal
 /src/Api/RocketMqtt/RocketMqtt.db
 /src/Api/RocketMqtt/RocketMqtt.db-shm
+/.idea
