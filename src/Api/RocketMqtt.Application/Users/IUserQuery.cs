@@ -7,4 +7,5 @@ namespace RocketMqtt.Application.Users;
 public interface IUserQuery
 {
     Task<PageListResult<UserResult>> GetPageListAsync(UserPageRequest request);
+    Task<LoginResult> LoginAsync(LoginRequest request);
 }

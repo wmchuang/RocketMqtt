@@ -10,6 +10,7 @@ export interface LoginData {
 
 export interface LoginRes {
   token: string;
+  userName: string;
 }
 
 export interface PageRequest extends BasePageQueryRequestModel {
@@ -22,6 +23,12 @@ export interface PageResult {
 }
 
 export interface AddUserRequest {
+  userName: string;
+  password: string;
+  remark: string;
+}
+
+export interface UpdateUserRequest {
   userName: string;
   password: string;
   remark: string;

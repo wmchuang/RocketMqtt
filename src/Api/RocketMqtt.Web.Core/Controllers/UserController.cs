@@ -40,12 +40,23 @@ public class UserController : BaseController
     [AllowAnonymous]
     public async Task<LoginResult> Login(LoginRequest request)
     {
-        var token = await _tokenService.CreateTokenAsync("1231231312");
-        return new LoginResult()
+        if (request.UserName == "admin")
         {
-            Token = token,
-            FullName = "Admin"
-        };
+            var token = await _tokenService.CreateTokenAsync("1111111111111");
+            return new LoginResult()
+            {
+                Token = token,
+                UserName = "Admin"
+            };
+        }
+        else
+        {
+            var result = await _userQuery.LoginAsync(request);
+
+            var token = await _tokenService.CreateTokenAsync(result.UserId);
+            result.Token = token;
+            return result;
+        }
     }
 
     /// <summary>

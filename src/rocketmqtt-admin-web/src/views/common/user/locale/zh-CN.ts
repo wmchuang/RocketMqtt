@@ -8,6 +8,8 @@ export default {
   'user.columns.index': '#',
   'user.columns.userName': '用户名',
   'user.columns.remark': '备注',
+  'user.columns.operations': '操作',
+  'user.columns.operations.edit': '编辑',
 
   // add from
   'user.addForm': '添加',

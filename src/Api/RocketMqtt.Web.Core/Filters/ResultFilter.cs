@@ -17,7 +17,6 @@ public class ResultFilter : IAsyncResultFilter, IAsyncExceptionFilter
     /// <param name="next"></param>
     public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
-        Console.WriteLine("OnResultExecutionAsync Start");
         var data = GetResult(context.Result);
 
         if (data is ApiResult)
@@ -32,7 +31,6 @@ public class ResultFilter : IAsyncResultFilter, IAsyncExceptionFilter
 
         await next();
 
-        Console.WriteLine("OnResultExecutionAsync End");
 
         object? GetResult(IActionResult res)
         {
