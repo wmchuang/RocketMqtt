@@ -18,6 +18,7 @@ export interface PageRequest extends BasePageQueryRequestModel {
 }
 
 export interface PageResult {
+  userId: string;
   userName: string;
   remark: string;
 }
@@ -28,10 +29,15 @@ export interface AddUserRequest {
   remark: string;
 }
 
-export interface UpdateUserRequest {
-  userName: string;
-  password: string;
+export interface UpdateUserRemarkRequest {
+  userId: string;
   remark: string;
+}
+
+
+export interface UpdateUserRequest extends UpdateUserRemarkRequest{
+  newPassword: string;
+  confirmPassword: string;
 }
 
 export function getPage(data: BasePageQueryRequestModel) {
@@ -45,6 +51,17 @@ export function login(data: LoginData) {
 export function add(data: AddUserRequest) {
   return axios.post<LoginRes>('/api/user/add', data);
 }
+
+
+export function updateRemark(data: UpdateUserRemarkRequest) {
+  return axios.post<LoginRes>('/api/user/updateRemark', data);
+}
+
+
+export function update(data: UpdateUserRequest) {
+  return axios.post<LoginRes>('/api/user/update', data);
+}
+
 
 
 export function logout() {

@@ -10,11 +10,6 @@ public class UpdateUserCommand : IRequest<bool>
     public string UserId { get; set; }
 
     /// <summary>
-    /// 旧密码
-    /// </summary>
-    public string Password { get; set; }
-
-    /// <summary>
     /// 新密码
     /// </summary>
     public string NewPassword { get; set; }

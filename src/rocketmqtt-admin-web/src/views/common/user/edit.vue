@@ -1,38 +1,57 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
-import { UpdateUserRequest } from '@/api/user'
-import {  ref,  watch,watchEffect } from 'vue';
+import { PageResult, UpdateUserRequest,UpdateUserRemarkRequest,updateRemark,update } from '@/api/user'
+import {  ref,reactive,  watch,watchEffect } from 'vue';
 
-const emits = defineEmits(['update:visible', 'save'])
+const emits = defineEmits(['update:visible', 'closeEditModal'])
 
 const showUpdatePasword = ref(false)
 const validateTrigger = ref<('change' | 'input' | 'focus' | 'blur')[]>(['change', 'input'])
-const formModel = ref<UpdateUserRequest>({
+const formModel = reactive({
+    userId: '',
     userName: '',
-    password: '',
     remark: '',
-  });
+    newPassword: '',
+    confirmPassword: '',
+});
 
 const props = defineProps<{
   visible?: boolean,
-  user?: UpdateUserRequest
+  user?: PageResult
 }>()
 
 function assign() {
   let uobj = props.user;
   if(uobj != null)
   {
-    formModel.value.userName = uobj.userName;
-    formModel.value.remark = uobj.remark;
+    formModel.userId = uobj.userId;
+    formModel.userName = uobj.userName;
+    formModel.remark = uobj.remark;
   }
 }
 
-const handleOk = () => {
-    emits('save')
+const handleOk = async () =>  {
+  if(showUpdatePasword.value == false)
+  {
+    let request: UpdateUserRemarkRequest = {
+      userId: formModel.userId,
+      remark: formModel.remark,
+    };
+    await updateRemark(request);
+  }else{
+    let request: UpdateUserRequest = {
+      userId: formModel.userId,
+      remark: formModel.remark,
+      newPassword: formModel.newPassword,
+      confirmPassword: formModel.confirmPassword,
+    };
+    await update(request);
+  }
+  emits('closeEditModal')
 }
 
 const handleCancel = () => {
-    emits('save')
+    emits('closeEditModal')
 }
 
 const updateshowUpdate = () => {
@@ -61,18 +80,16 @@ watch(() => props.visible,(val) => {
         </a-form-item>
 
         <template v-if="showUpdatePasword">
-          <a-form-item  field="pasword" label="旧密码" >
-              <a-input
-                allow-clear />
-          </a-form-item>
-
+         
           <a-form-item  field="newPasword" label="新密码" >
               <a-input
+               v-model="formModel.newPassword"
                 allow-clear />
           </a-form-item>
         
           <a-form-item  field="confirmNewPasword" label="确认新密码" >
               <a-input
+              v-model="formModel.confirmPassword"
                 allow-clear />
           </a-form-item>
       </template>

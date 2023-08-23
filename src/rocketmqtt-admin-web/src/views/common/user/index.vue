@@ -76,7 +76,7 @@
       </a-form>
     </a-modal>
 
-    <edit v-model:visible="editvisible" @save="save" :user="updateUserRequest"></edit>
+    <edit v-model:visible="editvisible" @closeEditModal="closeEditModal" :user="currenUser"></edit>
   </div>
 </template>
 
@@ -85,7 +85,7 @@ import { computed, ref, reactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useLoading from '@/hooks/loading';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
-import { PageRequest, PageResult, getPage, AddUserRequest, add, UpdateUserRequest } from '@/api/user'
+import { PageRequest, PageResult, getPage, AddUserRequest, add } from '@/api/user'
 import { Pagination } from '@/types/global';
 import cloneDeep from 'lodash/cloneDeep';
 import { Message } from '@arco-design/web-vue';
@@ -108,9 +108,9 @@ const addForm = ref<AddUserRequest>({
   remark: '',
 });
 
-const updateUserRequest = ref<UpdateUserRequest>({
+const currenUser = reactive<PageResult>({
+  userId: '',
   userName: '',
-  password: '',
   remark: '',
 });
 const visible = ref(false);
@@ -185,8 +185,9 @@ const create = (create: boolean) => {
 }
 
 const editHandle = (record: PageResult) => {
-  updateUserRequest.value.userName = record.userName;
-  updateUserRequest.value.remark = record.remark;
+  currenUser.userId = record.userId;
+  currenUser.userName = record.userName;
+  currenUser.remark = record.remark;
   editvisible.value = true;
 }
 
@@ -206,9 +207,9 @@ const handleOk = async () => {
   fetchData();
 };
 
-const save = () => {
-  
+const closeEditModal = () => {
   editvisible.value = false;
+  fetchData();
 };
 
 fetchData();

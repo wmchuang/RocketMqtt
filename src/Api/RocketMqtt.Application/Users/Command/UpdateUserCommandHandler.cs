@@ -23,7 +23,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
         }
 
         user.UpdateRemark(request.Remark);
-        user.UpdatePassword(request.Password, request.NewPassword, request.ConfirmPassword);
+        user.UpdatePassword(request.NewPassword, request.ConfirmPassword);
         await _userRep.UpdateAsync(user);
 
         await _userRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);

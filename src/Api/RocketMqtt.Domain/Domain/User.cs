@@ -61,14 +61,10 @@ public class User : EntityBase
     /// <summary>
     /// 修改密码
     /// </summary>
-    /// <param name="password"></param>
     /// <param name="newPassword"></param>
     /// <param name="confirmPassword"></param>
-    public void UpdatePassword(string password, string newPassword, string confirmPassword)
+    public void UpdatePassword(string newPassword, string confirmPassword)
     {
-        if (Password != CreatePassword(password, Salt))
-            throw new OperationException("旧密码输入错误");
-
         if (newPassword != confirmPassword)
             throw new OperationException("俩次输入的密码不一致");
 
