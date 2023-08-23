@@ -93,6 +93,17 @@ public class UserController : BaseController
     }
 
     /// <summary>
+    /// 删除账户信息
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> DeleteAsync(DeleteUserCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+    
+    /// <summary>
     /// 分页列表
     /// </summary>
     /// <returns></returns>
