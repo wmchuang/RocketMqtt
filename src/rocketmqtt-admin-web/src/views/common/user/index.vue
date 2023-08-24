@@ -58,6 +58,10 @@
           <a-button type="text" size="small" @click="editHandle(record)">
             {{ $t('user.columns.operations.edit') }}
           </a-button>
+
+          <a-button type="text" font-bold size="small" @click="deleteUser(record)">
+            删除
+          </a-button>
         </template>
       </a-table>
     </a-card>
@@ -85,10 +89,10 @@ import { computed, ref, reactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useLoading from '@/hooks/loading';
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
-import { PageRequest, PageResult, getPage, AddUserRequest, add } from '@/api/user'
+import { PageRequest, PageResult, getPage, AddUserRequest, add,deleteUserApi } from '@/api/user'
 import { Pagination } from '@/types/global';
 import cloneDeep from 'lodash/cloneDeep';
-import { Message } from '@arco-design/web-vue';
+import { Message,Modal } from '@arco-design/web-vue';
 import edit from './edit.vue'
 
 
@@ -216,6 +220,27 @@ fetchData();
 const reset = () => {
   formModel.value = generateFormModel();
 };
+
+function deleteUser({ userId }: PageResult) {
+  if (!userId) return
+  Modal.info({
+    title: '删除确认',
+    content: '确定要删除该用户吗？',
+    hideCancel: false,
+    onOk: () => {
+      deleteUserApi({ userId })
+        .then(({ data }) => {
+          console.log(data);
+          if (data === false) {
+            Message.error('用户删除失败')
+            return
+          }
+          Message.success('用户删除成功')
+          onPageChange(basePagination.pageIndex)
+        })
+    },
+  })
+}
 
 
 watch(

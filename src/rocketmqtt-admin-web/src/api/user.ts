@@ -34,6 +34,11 @@ export interface UpdateUserRemarkRequest {
   remark: string;
 }
 
+export interface DeleteUserRequest {
+  userId: string;
+}
+
+
 
 export interface UpdateUserRequest extends UpdateUserRemarkRequest{
   newPassword: string;
@@ -60,6 +65,10 @@ export function updateRemark(data: UpdateUserRemarkRequest) {
 
 export function update(data: UpdateUserRequest) {
   return axios.post<LoginRes>('/api/user/update', data);
+}
+
+export function deleteUserApi(data: DeleteUserRequest) {
+  return axios.post<boolean>('/api/user/delete', data);
 }
 
 

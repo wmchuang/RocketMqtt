@@ -67,7 +67,7 @@ watch(() => props.visible,(val) => {
 <template>
     <a-modal 
         :visible="visible" 
-        :title="$t('user.addForm')" 
+        :title="$t('user.editForm')" 
         :mask-closable="false"
         @cancel="handleCancel"
         @ok="handleOk">

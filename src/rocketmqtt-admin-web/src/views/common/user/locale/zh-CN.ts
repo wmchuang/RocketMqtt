@@ -16,4 +16,7 @@ export default {
   'user.addForm.userName': '用户名',
   'user.addForm.password': '密码',
   'user.addForm.remark': '备注',
+
+  //edit from
+  'user.editForm': '修改',
 };
