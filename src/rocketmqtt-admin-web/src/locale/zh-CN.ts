@@ -30,7 +30,7 @@ import localeClient from '@/views/client/locale/zh-CN';
 import localeTopic from '@/views/topic/locale/zh-CN';
 import localeSubscribed from '@/views/subscribed/locale/zh-CN';
 import localeCommonUser from '@/views/common/user/locale/zh-CN';
-
+import localeToolWebsocket from '@/views/tool/websocket/locale/zh-CN';
 
 import localeSettings from './zh-CN/settings';
 
@@ -41,6 +41,7 @@ export default {
   'menu.topic': '主题',
   'menu.subscribed': '订阅',
   'menu.common': '通用',
+  'menu.tool': '工具',
   'menu.dashboard': '仪表盘',
   'menu.server.dashboard': '仪表盘-服务端',
   'menu.server.workplace': '工作台-服务端',
@@ -80,4 +81,5 @@ export default {
   ...localeTopic,
   ...localeSubscribed,
   ...localeCommonUser,
+  ...localeToolWebsocket,
 };

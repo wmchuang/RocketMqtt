@@ -124,6 +124,9 @@ public class Startup
 
         app.UserSwaggerUi();
 
-        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        app.UseEndpoints(endpoints => { 
+            endpoints.MapControllers(); 
+            endpoints.MapMqtt("/mqtt"); 
+        });
     }
 }
