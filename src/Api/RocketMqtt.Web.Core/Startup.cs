@@ -77,6 +77,8 @@ public class Startup
             //关掉自带的模型验证
             options.SuppressModelStateInvalidFilter = true;
         });
+
+        services.AddSingleton<WebSocketClient>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)

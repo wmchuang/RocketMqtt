@@ -4,6 +4,9 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
 import configArcoStyleImportPlugin from './plugin/arcoStyleImport';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
+import nodePolyfills from "rollup-plugin-polyfill-node";
 
 export default defineConfig({
   plugins: [
@@ -30,8 +33,35 @@ export default defineConfig({
         find: 'vue',
         replacement: 'vue/dist/vue.esm-bundler.js', // compile template
       },
+      {
+        find: 'util',
+        replacement: 'util/', 
+      }
     ],
     extensions: ['.ts', '.js'],
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: 'globalThis'
+      },
+      // Enable esbuild polyfill plugins
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+          process: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    }
+  },
+  build: {
+    rollupOptions: {
+      // Enable rollup polyfills plugin
+      // used during production bundling
+      plugins: [nodePolyfills()],
+    },
   },
   define: {
     'process.env': {},

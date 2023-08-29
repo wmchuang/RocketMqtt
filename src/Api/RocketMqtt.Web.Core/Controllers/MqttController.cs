@@ -54,7 +54,7 @@ public class MqttController
         var command = new CreateConnInfoCommand()
         {
             ClientId = eventArgs.ClientId,
-            UserName = eventArgs.UserName,
+            UserName = eventArgs?.UserName ?? string.Empty,
             Endpoint = endPoint.ToString(),
             KeepAlive = (uint)eventArgs.KeepAlivePeriod
         };

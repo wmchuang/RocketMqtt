@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 
+
 const formModel = reactive({
     host: 'localhost',
     port: '8080',
@@ -11,6 +12,13 @@ const formModel = reactive({
 let url = computed(() => {
     return "wss://" + formModel.host + ':' + formModel.port + formModel.path;
 })
+
+
+const connect = () => {
+    // const client = mqtt('ws://localhost:8080/mqtt');
+    // console.log(client);
+}
+
 </script>
 <template>
     <a-form layout="vertical" :model="formModel">
@@ -76,7 +84,7 @@ let url = computed(() => {
         <a-row style="margin-top:30px">
             <div class="actions">
                 <a-space :size="large">
-                    <a-button type="primary" status="success">连接</a-button>
+                    <a-button type="primary" status="success" @click="connect">连接</a-button>
                     <a-button type="primary" status="danger" disabled>断开连接</a-button>
 
                     当前状态： <text class="error">未连接</text>

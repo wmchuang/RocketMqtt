@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import connect from './components/connect.vue';
+import mqttConnect from './components/mqttConnect.vue';
+import { connect } from "mqtt"
+
+import { ref } from 'vue'
+
+
+const connected = ref(false)
+
+const client = connect('wss://test.mosquitto.org:8081');
+
+
+
 </script>
 <template>
     <div class="container">
         <Breadcrumb :items="['menu.tool', 'menu.tool.websocket']" />
         <a-space direction="vertical" :size="16" fill>
             <a-card class="general-card" title="连接">
-                <connect></connect>
+                <mqttConnect></mqttConnect>
             </a-card>
             <a-card class="general-card" title="订阅">
                 <!-- <connect></connect> -->
