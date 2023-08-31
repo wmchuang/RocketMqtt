@@ -24,7 +24,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>
 
         await _userRep.DeleteAsync(user);
 
-        await _userRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _userRep.SaveChangesAsync(cancellationToken);
 
         return true;
     }

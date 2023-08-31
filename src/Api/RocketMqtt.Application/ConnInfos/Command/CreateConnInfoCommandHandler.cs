@@ -28,7 +28,7 @@ public class CreateConnInfoCommandHandler : IRequestHandler<CreateConnInfoComman
 
             await _connInfoRep.AddAsync(entity);
 
-            await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _connInfoRep.SaveChangesAsync(cancellationToken);
         }
         catch (Exception e)
         {

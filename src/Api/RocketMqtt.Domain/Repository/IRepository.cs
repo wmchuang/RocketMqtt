@@ -83,6 +83,8 @@ public interface IRepository<TDomain> where TDomain : class
     Task DeleteAsync(Expression<Func<TDomain, bool>> predicate);
 
     Task DeleteRangeAsync(Expression<Func<TDomain, bool>> predicate);
-
+    
     #endregion
+    
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
 }

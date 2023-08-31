@@ -24,7 +24,7 @@ public class ClientUnsubscribedCommandHandler : IRequestHandler<ClientUnsubscrib
                 await _subscribedRep.DeleteAsync(entity);
             }
             
-            await _subscribedRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _subscribedRep.SaveChangesAsync(cancellationToken);
         }
         else
         {
@@ -34,7 +34,7 @@ public class ClientUnsubscribedCommandHandler : IRequestHandler<ClientUnsubscrib
             {
                 entity.UnSubscribed();
                 await _subscribedRep.DeleteAsync(entity);
-                await _subscribedRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+                await _subscribedRep.SaveChangesAsync(cancellationToken);
             }
         }
 

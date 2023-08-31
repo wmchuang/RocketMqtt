@@ -18,7 +18,7 @@ public class CreateSubscribedCommandHandler : IRequestHandler<CreateSubscribedCo
         var entity = new Subscribed(request.ClientId,request.TopicName,request.Qos);
 
         await _subscribedRep.AddAsync(entity);
-        await _subscribedRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _subscribedRep.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

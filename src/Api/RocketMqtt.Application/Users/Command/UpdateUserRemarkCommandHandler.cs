@@ -25,7 +25,7 @@ public class UpdateUserRemarkCommandHandler : IRequestHandler<UpdateUserRemarkCo
         user.UpdateRemark(request.Remark);
         await _userRep.UpdateAsync(user);
 
-        await _userRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _userRep.SaveChangesAsync(cancellationToken);
 
         return true;
     }

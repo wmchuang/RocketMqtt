@@ -24,7 +24,7 @@ public class ClientUnsubscribedEventHandler : INotificationHandler<ClientUnsubsc
         var entity = await _topicRep.FirstOrDefaultAsync(x => x.TopicName == notification.TopicName);
 
         await _topicRep.DeleteAsync(entity);
-        await _topicRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _topicRep.SaveChangesAsync(cancellationToken);
     }
 }
 
@@ -46,6 +46,6 @@ public class ClientUnsubscribedEventCutSubCountHandler : INotificationHandler<Cl
 
         await _connInfoRep.UpdateAsync(entity);
 
-        await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _connInfoRep.SaveChangesAsync(cancellationToken);
     }
 }

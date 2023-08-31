@@ -1,8 +1,6 @@
-﻿using MediatR;
+﻿namespace RocketMqtt.Domain.Event;
 
-namespace RocketMqtt.Domain.Event;
-
-public class ClientUnsubscribedEvent : INotification
+public class ClientUnsubscribedEvent : IDomainEvent
 {
     /// <summary>
     /// 客户端Id

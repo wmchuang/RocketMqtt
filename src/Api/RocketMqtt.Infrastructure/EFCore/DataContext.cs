@@ -32,12 +32,12 @@ public class DataContext : DbContext, IUnitOfWork
         base.OnModelCreating(modelBuilder);
     }
 
-    public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
         await _mediator.DispatchDomainEventsAsync(this);
 
         var result = await base.SaveChangesAsync(cancellationToken);
 
-        return true;
+        return result;
     }
 }

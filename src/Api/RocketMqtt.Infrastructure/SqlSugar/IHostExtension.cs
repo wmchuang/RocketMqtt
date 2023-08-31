@@ -18,8 +18,8 @@ public static class IHostExtension
             var context = services.GetRequiredService<BaseDbClient>();
 
             var types = typeof(EntityBase).Assembly.GetTypes()
-                .Where(type => type.IsClass 
-                               && !type.IsAbstract 
+                .Where(type => type.IsClass
+                               && !type.IsAbstract
                                && typeof(EntityBase).IsAssignableFrom(type))
                 .ToArray();
 
@@ -27,7 +27,7 @@ public static class IHostExtension
             {
                 context.Db.CodeFirst.SetStringDefaultLength(200).InitTables(types); //根据types创建表
 
-                context.SaveEntitiesAsync();
+                context.SaveChangesAsync().Wait();
             }
             catch (Exception e)
             {

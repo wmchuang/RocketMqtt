@@ -26,7 +26,7 @@ public class BaseDbClient : IUnitOfWork
         uow.Dispose();
     }
 
-    public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
         var domainEvents = ModifiedEntities.SelectMany(x => x.DomainEvents).ToList();
         
@@ -35,6 +35,6 @@ public class BaseDbClient : IUnitOfWork
             await _mediator.Publish(domainEvent, cancellationToken);
 
         
-        return uow.Commit();
+        return uow.Commit() ? 1 : 0;
     }
 }

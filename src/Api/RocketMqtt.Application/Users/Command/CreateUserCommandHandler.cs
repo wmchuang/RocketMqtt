@@ -25,7 +25,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
         var user = new User(request.UserName, request.Password, request.Remark);
         await _userRep.AddAsync(user);
 
-        await _userRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _userRep.SaveChangesAsync(cancellationToken);
 
         return true;
     }

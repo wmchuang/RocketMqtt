@@ -86,4 +86,9 @@ public class SqlSugarRepository<TEntity> : IRepository<TEntity> where TEntity : 
             await DeleteAsync(entity);
         }
     }
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+    {
+        return await UnitOfWork.SaveChangesAsync(cancellationToken);
+    }
 }

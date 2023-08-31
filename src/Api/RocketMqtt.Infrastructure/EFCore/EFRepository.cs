@@ -134,4 +134,9 @@ public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         _context.Set<TEntity>().RemoveRange(data);
     }
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+    {
+        return await UnitOfWork.SaveChangesAsync(cancellationToken);
+    }
 }

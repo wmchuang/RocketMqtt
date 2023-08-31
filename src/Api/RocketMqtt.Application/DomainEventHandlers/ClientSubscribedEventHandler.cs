@@ -28,7 +28,7 @@ public class ClientSubscribedEventHandler : INotificationHandler<ClientSubscribe
 
         await _topicRep.AddAsync(new Topic(notification.TopicName, ipAddress));
 
-        await _topicRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _topicRep.SaveChangesAsync(cancellationToken);
     }
 }
 
@@ -53,6 +53,6 @@ public class ClientSubscribedEventAddSubCountHandler : INotificationHandler<Clie
 
         await _connInfoRep.UpdateAsync(entity);
         
-        await _connInfoRep.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await _connInfoRep.SaveChangesAsync(cancellationToken);
     }
 }
