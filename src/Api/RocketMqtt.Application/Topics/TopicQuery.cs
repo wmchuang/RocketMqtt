@@ -1,4 +1,5 @@
-﻿using RocketMqtt.Application.Common;
+﻿using InterfaceGenerator;
+using RocketMqtt.Application.Common;
 using RocketMqtt.Application.Topics.Request;
 using RocketMqtt.Application.Topics.Result;
 using RocketMqtt.Domain.Domain;
@@ -8,6 +9,7 @@ using SqlSugar;
 
 namespace RocketMqtt.Application.Topics;
 
+[GenerateAutoInterface]
 public class TopicQuery : ITopicQuery
 {
     private readonly SqlSugarScopeProvider _baseDbClient;

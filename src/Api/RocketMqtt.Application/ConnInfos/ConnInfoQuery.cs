@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using InterfaceGenerator;
+using Mapster;
 using RocketMqtt.Application.Common;
 using RocketMqtt.Application.ConnInfos.Request;
 using RocketMqtt.Application.ConnInfos.Result;
@@ -9,6 +10,8 @@ using SqlSugar;
 
 namespace RocketMqtt.Application.ConnInfos;
 
+
+[GenerateAutoInterface]
 public class ConnInfoQuery : IConnInfoQuery
 {
     private readonly SqlSugarScopeProvider _baseDbClient;

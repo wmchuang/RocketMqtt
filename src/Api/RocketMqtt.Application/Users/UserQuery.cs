@@ -1,4 +1,5 @@
-﻿using RocketMqtt.Application.Common;
+﻿using InterfaceGenerator;
+using RocketMqtt.Application.Common;
 using RocketMqtt.Application.Users.Request;
 using RocketMqtt.Application.Users.Result;
 using RocketMqtt.Domain.Domain;
@@ -10,6 +11,7 @@ using SqlSugar;
 
 namespace RocketMqtt.Application.Users;
 
+[GenerateAutoInterface]
 public class UserQuery : IUserQuery
 {
     private readonly SqlSugarScopeProvider _baseDbClient;

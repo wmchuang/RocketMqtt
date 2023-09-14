@@ -1,4 +1,5 @@
-﻿using RocketMqtt.Application.Common;
+﻿using InterfaceGenerator;
+using RocketMqtt.Application.Common;
 using RocketMqtt.Application.Subscribeds.Request;
 using RocketMqtt.Application.Subscribeds.Result;
 using RocketMqtt.Domain.Domain;
@@ -8,11 +9,7 @@ using SqlSugar;
 
 namespace RocketMqtt.Application.Subscribeds;
 
-public interface ISubscribedQuery
-{
-    Task<PageListResult<SubscribedResult>> GetPageListAsync(SubscribedPageRequest request);
-}
-
+[GenerateAutoInterface]
 public class SubscribedQuery : ISubscribedQuery
 {
     private readonly SqlSugarScopeProvider _baseDbClient;
